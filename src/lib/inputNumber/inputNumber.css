@@ -1,0 +1,15 @@
+.textRight
+{
+    text-align: right;
+}
+
+.hiddenArrows
+{
+    appearance: textfield;
+}
+
+.hiddenArrows::-webkit-inner-spin-button, .hiddenArrows::-webkit-outer-spin-button
+{
+    appearance: none;
+    margin: 0;
+}

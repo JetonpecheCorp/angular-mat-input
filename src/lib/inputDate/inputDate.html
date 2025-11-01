@@ -1,0 +1,38 @@
+<mat-form-field [floatLabel]="floatLabel()" 
+                [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if(label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input  matInput 
+            [matDatepicker]="picker" 
+            [matDatepickerFilter]="dateFilter"
+            [disabled]="disabledPartial()"
+            [min]="min()" 
+            [max]="max()">
+
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+
+            @if(iconPicker())
+            {
+                <mat-icon matDatepickerToggleIcon>{{ iconPicker() }}</mat-icon>
+            }
+        </mat-datepicker-toggle>
+
+    <mat-datepicker [disabled]="disabledPartial() ? false : disabledPartial()" [touchUi]="touchUi()" #picker></mat-datepicker>
+
+    @if (control.hasError('required')) 
+    {
+        <mat-error>{{ "required" | traduction }}</mat-error>
+    }
+    @else if (control.hasError('minDate')) 
+    {
+        <mat-error>{{ "minDate" | traduction:control.getError("minDate") }}</mat-error>
+    }
+    @else if (control.hasError('maxDate')) 
+    {
+        <mat-error>{{ "maxDate" | traduction:control.getError("maxDate") }}</mat-error>
+    }
+</mat-form-field>

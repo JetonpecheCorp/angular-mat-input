@@ -1,0 +1,57 @@
+/* https://material.angular.dev/guide/system-variables */
+
+.drop-zone 
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  min-height: 150px;
+  
+  font: var(--mat-sys-body-medium);
+  background-color: var(--mat-sys-surface-variant);
+
+  letter-spacing: var(--mat-sys-label-large-tracking);
+  font-family: var(--mat-sys-display-medium-font);
+  color: var(--mat-sys-on-surface);
+  
+  border: 2px dashed var(--mat-sys-primary); 
+  border-radius: 4px;
+  
+  cursor: pointer;
+  text-align: center;
+  
+  /* Transition douce */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.drop-zone mat-icon 
+{
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.drop-zone.disabled 
+{
+  pointer-events: none;
+  border: 2px dashed var(--mat-sys-outline); 
+  color: color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent);
+  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+  font-weight: var(--mat-sys-label-large-weight);
+  letter-spacing: var(--mat-sys-label-large-tracking);
+}
+
+.drop-zone.drop-zone-dark.is-dragging, .drop-zone.drop-zone-dark:hover 
+{
+  filter: brightness(1.1);
+  color: var(--mat-sys-on-surface);
+}
+
+.drop-zone.drop-zone-light.is-dragging, .drop-zone.drop-zone-light:hover 
+{
+  background-color: var(--mat-sys-surface-dim);
+  color: var(--mat-sys-on-surface);
+}

@@ -1,0 +1,13 @@
+{
+    "required": "Il campo è obbligatorio",
+    "email": "Si prega di inserire un indirizzo email valido",
+    "minLength": "Il campo deve contenere almeno {var} caratteri",
+    "maxLength": "Il campo deve contenere al massimo {var} caratteri",
+    "password": "Il campo deve contenere 1 cifra, 1 lettera maiuscola, 1 carattere speciale ed essere lungo almeno 8 caratteri",
+    "min": "Il valore deve essere almeno",
+    "max": "Il valore deve essere al massimo",
+    "minDate": "La data non può essere anteriore al",
+    "maxDate": "La data non può essere successiva al",
+
+    "fichierTxt": "Trascina e rilascia i tuoi file o fai clic qui"
+}

@@ -1,0 +1,34 @@
+<mat-form-field [floatLabel]="floatLabel()" 
+                [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if(label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <textarea matInput 
+              [formControl]="control"
+              [attr.placeholder]="placeholder()"
+              [attr.minlength]="minLength()"
+              [attr.maxlength]="maxLength()"
+              [attr.cols]="cols()"
+              [attr.rows]="rows()"></textarea>
+
+    @if(showMaxLength())
+    {
+        <mat-hint align="end">{{ control.value.length }} / {{ maxLength() }}</mat-hint>
+    }
+    
+    @if (control.hasError('required')) 
+    {
+        <mat-error>{{ "required" | traduction }}</mat-error>
+    }
+    @else if (control.hasError('minlength')) 
+    {
+        <mat-error>{{ "minLength" | traduction:control.getError("minlength").requiredLength }}</mat-error>
+    }
+    @else if (control.hasError('maxlength')) 
+    {
+        <mat-error>{{ "maxLength" | traduction:control.getError("maxlength").requiredLength }}</mat-error>
+    }
+</mat-form-field>

@@ -1,0 +1,24 @@
+<div  [ngClass]="{ 'drop-zone': true, 'is-dragging': estDragger(), 'disabled': disabled() }"
+      (dragover)="DragOver($event)"
+      (dragleave)="DragLeave($event)"
+      (drop)="onDrop($event)"
+      (click)="fileInput.click()"
+      [aria-disabled]="disabled()"
+      darkModeTheme>
+
+  <mat-icon>{{ icon() }}</mat-icon>
+  <span>{{ "fichierTxt" | traduction }}</span>
+
+  @if(info())
+  {
+    <span>{{ info() }}</span>
+  }
+
+  <input type="file" 
+         #fileInput 
+         (change)="FichierChoisi($event)" 
+         [accept]="accept()"
+         [multiple]="!notMultiple()" 
+         [disabled]="disabled()"
+         hidden>
+</div>

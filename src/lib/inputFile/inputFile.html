@@ -1,0 +1,60 @@
+@if(matFab() && !extended())
+{
+    <button type="button" 
+            matFab
+            [disabled]="disabled()"
+            (click)="Ouvrir($event, inputFile)">
+        <mat-icon>{{ icon() }}</mat-icon>
+    </button>  
+}
+@else if(matFab() && extended())
+{
+    <button type="button" 
+            matFab
+            extended
+            [disabled]="disabled()"
+            (click)="Ouvrir($event, inputFile)">
+        <mat-icon>{{ icon() }}</mat-icon>
+        {{ label() }}
+    </button>  
+}
+@else if (matMiniFab()) 
+{
+    <button type="button" 
+            matMiniFab
+            [disabled]="disabled()"
+            (click)="Ouvrir($event, inputFile)">
+        <mat-icon>{{ icon() }}</mat-icon>
+    </button>  
+}
+@else if (matIconButton()) 
+{
+    <button type="button" 
+            matIconButton
+            [disabled]="disabled()"
+            (click)="Ouvrir($event, inputFile)">
+        <mat-icon>{{ icon() }}</mat-icon>
+    </button> 
+}
+@else 
+{
+    <button type="button" 
+            [disabled]="disabled()"
+            (click)="Ouvrir($event, inputFile)" 
+            [matButton]="matButton()">
+        @if(icon())
+        {
+            <mat-icon>{{ icon() }}</mat-icon>
+        }
+
+        {{ label() }}
+    </button>
+}
+
+<input #inputFile
+       [formControl]="control"
+       style="display: none;" 
+       type="file"
+       (change)="InputChange($event)"
+       [attr.accept]="accept()"
+       [attr.multiple]="multiple()">

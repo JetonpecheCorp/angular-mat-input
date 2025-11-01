@@ -1,0 +1,40 @@
+<mat-form-field [floatLabel]="floatLabel()" 
+                [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if(label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input  matInput 
+            [ngClass]="{ 'textRight': textRight(), 'hiddenArrows': hiddenArrows() }"
+            type="number"
+            [formControl]="control"
+            [attr.placeholder]="placeholder()"
+            [attr.min]="min()"
+            [attr.max]="max()"
+            [attr.step]="step()">
+
+    @if(suffixIcon())
+    {
+        <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    }
+
+    @if(prefixIcon())
+    {
+        <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    }
+    
+    @if (control.hasError('required')) 
+    {
+        <mat-error>{{ "required" | traduction }}</mat-error>
+    }
+    @else if (control.hasError('min')) 
+    {
+        <mat-error>{{ "min" | traduction:control.getError("min").min }}</mat-error>
+    }
+    @else if (control.hasError('max'))
+    {
+        <mat-error>{{ "max" | traduction:control.getError("max").max }}</mat-error>
+    }
+</mat-form-field>

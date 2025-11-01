@@ -1,0 +1,47 @@
+<mat-form-field [floatLabel]="floatLabel()" 
+                [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if(label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input  matInput 
+            [type]="type()"
+            [formControl]="control"
+            [attr.placeholder]="placeholder()"
+            [attr.minlength]="minLength()"
+            [attr.maxlength]="maxLength()">
+
+    @if(suffixIcon())
+    {
+        <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    }
+
+    @if(prefixIcon())
+    {
+        <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    @if(showMaxLength())
+    {
+        <mat-hint align="end">{{ control.value.length }} / {{ maxLength() }}</mat-hint>
+    }
+    
+    @if (control.hasError('required')) 
+    {
+        <mat-error>{{ "required" | traduction }}</mat-error>
+    }
+    @else if (control.hasError('minlength')) 
+    {
+        <mat-error>{{ "minLength" | traduction:control.getError("minlength").requiredLength }}</mat-error>
+    }
+    @else if (control.hasError('maxlength')) 
+    {
+        <mat-error>{{ "maxLength" | traduction:control.getError("maxlength").requiredLength }}</mat-error>
+    }
+    @else if (control.hasError('email')) 
+    {
+        <mat-error>{{ "email" | traduction }}</mat-error>
+    }
+</mat-form-field>
