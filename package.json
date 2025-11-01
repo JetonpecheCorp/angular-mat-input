@@ -2,7 +2,7 @@
   "name": "@jetonpeche/angular-mat-input",
   "description": "Input angular material avec les erreurs intégrées pour une utilisation plus simple",
   "author": "jetonpeche",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0",
@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JetonpecheCorp/angular-mat-input.git"
   },
   "sideEffects": false,
   "license": "ISC",
