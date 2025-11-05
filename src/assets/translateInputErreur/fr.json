@@ -9,5 +9,6 @@
     "minDate": "La date ne peut pas être antérieur à",
     "maxDate": "La date ne peut pas être supérieur à",
 
-    "fichierTxt": "Glissez-déposez vos fichiers ou cliquez ici"
+    "fichierTxt": "Glissez-déposez vos fichiers ou cliquez ici",
+    "requiredAutoCompleteSelected": "Le champ est obligatoire en selectionnant une option"
 }

@@ -9,5 +9,6 @@
     "minDate": "The date cannot be earlier than",
     "maxDate": "The date cannot be later than",
 
-    "fichierTxt": "Drag and drop your files or click here"
+    "fichierTxt": "Drag and drop your files or click here",
+    "requiredAutoCompleteSelected": "This field is required, please select an option"
 }

@@ -1,0 +1,41 @@
+<mat-form-field [floatLabel]="floatLabel()" 
+                [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if(label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input  matInput 
+            type="text" 
+            [aria-label]="label()"
+            [matAutocomplete]="auto"
+            [formControl]="formControlInterne()"
+            [attr.placeholder]="placeholder()"
+            [matAutocompletePosition]="matAutocompletePosition()"
+            (input)="Filtrer($event)">
+
+    <mat-autocomplete (optionSelected)="OptionChoisi($event)" 
+                      [autoActiveFirstOption]="!autoDesactiveFirstOption()"
+                      [requireSelection]="requireSelection()"
+                      (opened)="AutoCompleteOuvert()"
+                      (closed)="closed.emit()"
+                      #auto="matAutocomplete"
+                      [displayWith]="AffichageMatOption">
+        @for (element of dataSourceClone(); track $index) 
+        {
+            <mat-option [value]="element">
+                {{ element.display }}
+            </mat-option>
+        }
+    </mat-autocomplete>
+
+    @if(formControlInterne().hasError('required') && requireSelection())
+    {
+        <mat-error>{{ "requiredAutoCompleteSelected" | traduction }}</mat-error>
+    }
+    @else if (formControlInterne().hasError('required') && !requireSelection()) 
+    {
+        <mat-error>{{ "required" | traduction }}</mat-error>
+    }
+</mat-form-field>

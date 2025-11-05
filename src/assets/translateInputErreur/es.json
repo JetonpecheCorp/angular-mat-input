@@ -9,5 +9,6 @@
   "minDate": "La fecha no puede ser anterior a",
   "maxDate": "La fecha no puede ser posterior a",
 
-  "fichierTxt": "Arrastra y suelta tus archivos o haz clic aquí"
+  "fichierTxt": "Arrastra y suelta tus archivos o haz clic aquí",
+  "requiredAutoCompleteSelected": "El campo es obligatorio, seleccione una opción"
 }
