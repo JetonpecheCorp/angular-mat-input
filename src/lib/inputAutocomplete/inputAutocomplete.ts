@@ -1,6 +1,6 @@
-import { booleanAttribute, Component, input, linkedSignal, OnInit, output, Self, signal, viewChild } from '@angular/core';
+import { booleanAttribute, Component, input, linkedSignal, OnInit, output, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FloatLabelType, MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AutocompleteDataSource } from './AutocompleteDataSource';
@@ -15,8 +15,6 @@ import { MatOptionModule } from '@angular/material/core';
 })
 export class InputAutocomplete implements ControlValueAccessor, OnInit
 {
-    formField = viewChild.required<MatFormField>("matTest");
-
     /** Event autocomplete value changed */
     autocompleteChange = output<string>(); 
 
@@ -28,7 +26,7 @@ export class InputAutocomplete implements ControlValueAccessor, OnInit
 
     label = input<string>();
     placeholder = input<string>();
-    dataSource = input<AutocompleteDataSource[]>();
+    dataSource = input.required<AutocompleteDataSource[]>();
 
     matAutocompletePosition = input<"auto" | "above" | "below">("auto");
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });

@@ -239,3 +239,50 @@ onChange(_liste: FileList): void
    console.log(_liste);
 }
 ```
+
+# Input autocomplete
+
+## Attributs
+- `formControlName`: Obligatoire
+- `dataSource`: Obligatoire
+- `label`: Nom de l'input
+- `placeholder`: Placeholder de l'input
+- `floatLabel`: Bloquer le label en haut de l'input
+- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
+- `matAutocompletePosition`: Position de l'autocomplete (défaut auto)
+- `requireSelection`: La valeur choisi doit être dans les choix proposés
+- `disabledFilterComplete`: Désactiver le filtre des choix de l'autocomplete
+- `autoDesactiveFirstOption`: Désactiver l'auto selection du premier choix
+- `opened`: Event ouverture autocomplete
+- `closed`: Event déselection autocomplete
+- `autocompleteChange`: Event change de l'input
+
+## exemple
+```html
+<jp-autocomplete (autocompleteChange)="onChange($event)" 
+                 label="Chiffre" 
+                 [dataSource]="liste()" 
+                 formControlName="info" />
+```
+```ts
+liste = signal<AutocompleteDataSource[]>([{
+   display: "Un",
+   value: 1
+},
+{
+   display: "Deux",
+   value: 2
+}]);
+
+let form = new FormGroup({
+   info: new FormControl<number>(
+      "",
+      [Validators.Required]
+   )
+});
+
+onChange(_valeur: string): void
+{
+   console.log(_valeur);
+}
+```
