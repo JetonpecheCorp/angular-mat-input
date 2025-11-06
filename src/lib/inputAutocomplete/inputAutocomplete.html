@@ -1,7 +1,7 @@
 <mat-form-field [floatLabel]="floatLabel()" 
                 [hideRequiredMarker]="hiddenRequiredMarker()">
 
-    @if(label())
+    @if(label()) 
     {
         <mat-label>{{ label() }}</mat-label>
     }
@@ -10,11 +10,11 @@
             type="text" 
             [aria-label]="label()"
             [matAutocomplete]="auto"
-            [formControl]="formControlInterne()"
+            [formControl]="formControlInterne"
             [attr.placeholder]="placeholder()"
             [matAutocompletePosition]="matAutocompletePosition()"
-            (input)="Filtrer($event)">
-
+            (input)="Filtrer($event)"
+            (blur)="Blur()"> 
     <mat-autocomplete (optionSelected)="OptionChoisi($event)" 
                       [autoActiveFirstOption]="!autoDesactiveFirstOption()"
                       [requireSelection]="requireSelection()"
@@ -22,20 +22,17 @@
                       (closed)="closed.emit()"
                       #auto="matAutocomplete"
                       [displayWith]="AffichageMatOption">
-        @for (element of dataSourceClone(); track $index) 
+
+        @for (element of dataSourceClone(); track element.value) 
         {
-            <mat-option [value]="element">
+            <mat-option [value]="element"> 
                 {{ element.display }}
             </mat-option>
         }
     </mat-autocomplete>
 
-    @if(formControlInterne().hasError('required') && requireSelection())
+    @if(formControlInterne.hasError('required'))
     {
-        <mat-error>{{ "requiredAutoCompleteSelected" | traduction }}</mat-error>
-    }
-    @else if (formControlInterne().hasError('required') && !requireSelection()) 
-    {
-        <mat-error>{{ "required" | traduction }}</mat-error>
+        <mat-error>{{ (requireSelection() ? "requiredAutoCompleteSelected" : "required") | traduction }}</mat-error>
     }
 </mat-form-field>
