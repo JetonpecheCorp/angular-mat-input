@@ -1,0 +1,35 @@
+/* :is => contient une des classes */
+
+::ng-deep .btnLoader .matSpinnerBtnLoader .mdc-circular-progress__indeterminate-container .mdc-circular-progress__indeterminate-circle-graphic
+{
+    stroke: var(--mat-sys-on-primary);
+}
+
+::ng-deep .btnLoader:is(.btnLoaderText, .mat-mdc-raised-button) .matSpinnerBtnLoader .mdc-circular-progress__indeterminate-container .mdc-circular-progress__indeterminate-circle-graphic
+{
+    stroke: var(--mat-sys-primary);
+}
+
+::ng-deep .btnLoader.mat-tonal-button .matSpinnerBtnLoader .mdc-circular-progress__indeterminate-container .mdc-circular-progress__indeterminate-circle-graphic
+{
+    stroke: var(--mat-sys-on-secondary-container);
+}
+
+::ng-deep .btnLoader.btnLoaderMargin .mdc-button__label 
+{
+    margin-left: -8px;
+}
+
+::ng-deep .btnLoader .mdc-button__label
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+::ng-deep .btnLoader .mdc-button__label mat-icon
+{
+    font-size: 1.125rem;
+    height: 1.125rem;
+    width: 1.125rem;
+}

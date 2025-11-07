@@ -1,0 +1,119 @@
+
+@if(matIconButton())
+{
+    <button matIconButton
+            [disabled]="disabled()"    
+            [disableRipple]="disableRipple()" 
+            [disabledInteractive]="disabledInteractive()"
+            [aria-disabled]="disabled()" 
+            [matTooltip]="matTooltip()"
+            [matTooltipPosition]="matTooltipPosition()"
+            [attr.aria-label]="label()"
+            (click)="OnClick($event)">
+        @if(loading())
+        {
+            <mat-spinner class="matSpinnerBtnLoader" diameter="24"></mat-spinner>
+        }
+        @else
+        {
+            <mat-icon>{{ icon() }}</mat-icon>
+        }
+    </button>
+}
+@else if(matMiniFab())
+{
+    <button matMiniFab
+            [disabled]="disabled()"    
+            [disableRipple]="disableRipple()" 
+            [disabledInteractive]="disabledInteractive()"
+            [aria-disabled]="disabled()" 
+            [matTooltip]="matTooltip()"
+            [matTooltipPosition]="matTooltipPosition()"
+            [attr.aria-label]="label()"
+            (click)="OnClick($event)">
+        @if(loading())
+        {
+            <mat-spinner class="matSpinnerBtnLoader" diameter="30"></mat-spinner>
+        }
+        @else
+        {
+            <mat-icon>{{ icon() }}</mat-icon>
+        }
+    </button>
+}
+@else if(matFab())
+{
+    @if(extended())
+    {
+        <button matFab extended
+            [disabled]="disabled()"    
+            [disableRipple]="disableRipple()" 
+            [disabledInteractive]="disabledInteractive()"
+            [aria-disabled]="disabled()" 
+            [matTooltip]="matTooltip()"
+            [matTooltipPosition]="matTooltipPosition()"
+            [attr.aria-describedby]="ariaDescribedby()"
+            (click)="OnClick($event)">
+        <mat-icon>{{ icon() }}</mat-icon>
+        {{ label() }}
+    </button>
+    }
+    @else
+    {
+        <button matFab
+                [disabled]="disabled()"    
+                [disableRipple]="disableRipple()" 
+                [disabledInteractive]="disabledInteractive()"
+                [aria-disabled]="disabled()" 
+                [matTooltip]="matTooltip()"
+                [matTooltipPosition]="matTooltipPosition()"
+                [attr.aria-describedby]="ariaDescribedby()"
+                (click)="OnClick($event)">
+
+            @if(loading())
+            {
+                <mat-spinner class="matSpinnerBtnLoader" diameter="30"></mat-spinner>
+            }
+            @else
+            {
+                <mat-icon>{{ icon() }}</mat-icon>
+            }
+        </button>
+    }
+}
+@else
+{
+    <button [ngClass]="{ 
+                'btnLoader': true, 
+                'btnLoaderText': matButton() == 'text', 
+                'btnLoaderMargin': icon() && label() 
+            }"
+            [disabled]="disabled()"
+            [disableRipple]="disableRipple()" 
+            [matButton]="matButton()"
+            [disabledInteractive]="disabledInteractive()"
+            [aria-disabled]="disabled()" 
+            [matTooltip]="matTooltip()"
+            [matTooltipPosition]="matTooltipPosition()"
+            [attr.aria-describedby]="ariaDescribedby()"
+            [attr.aria-label]="label()"
+            (click)="OnClick($event)">
+
+        @if(loading())
+        {
+            <mat-spinner [style]="icon() ? 'margin-left: 8px' : ''" class="matSpinnerBtnLoader" diameter="30"></mat-spinner>
+        }
+        @else
+        {
+            @if(icon())
+            {
+                <mat-icon [class.btnLoaderNoLabel]="!label()">{{ icon() }}</mat-icon>
+            }
+
+            @if(label())
+            {
+                <span>{{ label() }}</span>
+            }
+        }
+    </button>
+}
