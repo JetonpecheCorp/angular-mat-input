@@ -15,6 +15,12 @@
     stroke: var(--mat-sys-on-secondary-container);
 }
 
+::ng-deep .mdc-icon-button .matSpinnerBtnLoader .mdc-circular-progress__indeterminate-container .mdc-circular-progress__indeterminate-circle-graphic
+{
+    stroke: var(--mat-sys-on-surface-variant);
+}
+
+
 ::ng-deep .btnLoader.btnLoaderMargin .mdc-button__label 
 {
     margin-left: -8px;
