@@ -286,3 +286,40 @@ onChange(_valeur: string): void
    console.log(_valeur);
 }
 ```
+
+# Button loader
+
+## Attributs
+- `icon`: Icon du bouton (mat icon)
+- `label`: Texte du bouton
+- `matTooltip`: Texte du tooltip
+- `matTooltipPosition`: Position du tooltip par defaut
+- `matButton`: Style du bouton (defaut filled)
+- `loading`: Etat pour afficher ou non le spinner
+- `matMiniFab`: Style du bouton
+- `matFab`: Style du bouton
+- `matIconButton`: Style du bouton
+- `extended`: Permet de mettre un label sur un bouton `matFab`
+- `disabledInteractive`: Désactiver les events et focus du bouton
+- `disableRipple`: Désactiver l'effet de clique
+- `disabled`: Désactiver le bouton
+- `matDialogClose`: Même fonctionnement que `mat-dialog-close`
+- `clicked`: Event click du bouton
+
+## Exemple
+
+## exemple
+```html
+<jp-button-loader icon="plus" 
+                  label="Click !" 
+                  matFab
+                  extended
+                  [loading]="false" 
+                  (clicked)="onClick()" />
+```
+```ts
+onClick(): void
+{
+   console.log("Coucou");
+}
+```

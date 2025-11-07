@@ -2,6 +2,7 @@
 @if(matIconButton())
 {
     <button matIconButton
+            [class.disabledInteractive]="disabledInteractive()"
             [disabled]="disabled()"    
             [disableRipple]="disableRipple()" 
             [disabledInteractive]="disabledInteractive()"
@@ -24,6 +25,7 @@
 @else if(matMiniFab())
 {
     <button matMiniFab
+            [class.disabledInteractive]="disabledInteractive()"
             [disabled]="disabled()"    
             [disableRipple]="disableRipple()" 
             [disabledInteractive]="disabledInteractive()"
@@ -47,6 +49,7 @@
     @if(extended())
     {
         <button matFab extended
+            [class.disabledInteractive]="disabledInteractive()"
             [disabled]="disabled()"    
             [disableRipple]="disableRipple()" 
             [disabledInteractive]="disabledInteractive()"
@@ -70,6 +73,7 @@
     @else
     {
         <button matFab
+                [class.disabledInteractive]="disabledInteractive()"
                 [disabled]="disabled()"    
                 [disableRipple]="disableRipple()" 
                 [disabledInteractive]="disabledInteractive()"
@@ -95,7 +99,8 @@
     <button [ngClass]="{ 
                 'btnLoader': true, 
                 'btnLoaderText': matButton() == 'text', 
-                'btnLoaderMargin': icon() && label() 
+                'btnLoaderMargin': icon() && label(),
+                'disabledInteractive': disabledInteractive()
             }"
             [disabled]="disabled()"
             [disableRipple]="disableRipple()" 

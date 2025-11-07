@@ -39,3 +39,9 @@
     height: 1.125rem;
     width: 1.125rem;
 }
+
+.disabledInteractive
+{
+    pointer-events: none !important;
+    user-select: none !important;
+}
