@@ -1,8 +1,8 @@
 {
   "name": "@jetonpeche/angular-mat-input",
-  "description": "Input angular material avec les erreurs intégrées pour une utilisation plus simple",
+  "description": "Inputs et boutons angular material avec les erreurs intégrées pour une utilisation plus simple",
   "author": "jetonpeche",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0",
@@ -17,5 +17,5 @@
   },
   "sideEffects": false,
   "license": "ISC",
-  "keywords": ["angular", "input", "angular material"]
+  "keywords": ["angular", "input", "button", "material", "angular material"]
 }
