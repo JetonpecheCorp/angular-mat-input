@@ -10,6 +10,7 @@
             [matTooltipPosition]="matTooltipPosition()"
             [attr.aria-label]="label()"
             (click)="OnClick($event)">
+
         @if(loading())
         {
             <mat-spinner class="matSpinnerBtnLoader" diameter="24"></mat-spinner>
@@ -54,8 +55,16 @@
             [matTooltipPosition]="matTooltipPosition()"
             [attr.aria-describedby]="ariaDescribedby()"
             (click)="OnClick($event)">
-        <mat-icon>{{ icon() }}</mat-icon>
-        {{ label() }}
+
+        @if(loading())
+        {
+            <mat-spinner class="matSpinnerBtnLoader" diameter="35"></mat-spinner>
+        }
+        @else
+        {
+            <mat-icon>{{ icon() }}</mat-icon>
+            {{ label() }}
+        }
     </button>
     }
     @else
@@ -72,7 +81,7 @@
 
             @if(loading())
             {
-                <mat-spinner class="matSpinnerBtnLoader" diameter="30"></mat-spinner>
+                <mat-spinner class="matSpinnerBtnLoader" diameter="35"></mat-spinner>
             }
             @else
             {
@@ -101,13 +110,13 @@
 
         @if(loading())
         {
-            <mat-spinner [style]="icon() ? 'margin-left: 8px' : ''" class="matSpinnerBtnLoader" diameter="30"></mat-spinner>
+            <mat-spinner [style]="icon() && label() ? 'margin-left: 8px' : ''" class="matSpinnerBtnLoader" diameter="30"></mat-spinner>
         }
         @else
         {
             @if(icon())
             {
-                <mat-icon [class.btnLoaderNoLabel]="!label()">{{ icon() }}</mat-icon>
+                <mat-icon>{{ icon() }}</mat-icon>
             }
 
             @if(label())
