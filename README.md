@@ -306,6 +306,9 @@ onChange(_valeur: string): void
 - `matDialogClose`: Même fonctionnement que `mat-dialog-close`
 - `clicked`: Event click du bouton
 
+## Information
+`loading` = `true` => `disabledInteractive` activé
+
 ## Exemple
 
 ## exemple

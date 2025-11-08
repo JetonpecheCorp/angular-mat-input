@@ -2,10 +2,10 @@
 @if(matIconButton())
 {
     <button matIconButton
-            [class.disabledInteractive]="disabledInteractive()"
+            [class.disabledInteractive]="disabledInteractive() || loading()"
             [disabled]="disabled()"    
             [disableRipple]="disableRipple()" 
-            [disabledInteractive]="disabledInteractive()"
+            [disabledInteractive]="disabledInteractive() || loading()"
             [aria-disabled]="disabled()" 
             [matTooltip]="matTooltip()"
             [matTooltipPosition]="matTooltipPosition()"
@@ -25,7 +25,7 @@
 @else if(matMiniFab())
 {
     <button matMiniFab
-            [class.disabledInteractive]="disabledInteractive()"
+            [class.disabledInteractive]="disabledInteractive() || loading()"
             [disabled]="disabled()"    
             [disableRipple]="disableRipple()" 
             [disabledInteractive]="disabledInteractive()"
@@ -49,7 +49,11 @@
     @if(extended())
     {
         <button matFab extended
-            [class.disabledInteractive]="disabledInteractive()"
+            [ngClass]="{ 
+                'btnLoaderMatFabExtended': true, 
+                'btnLoaderMargin': !loading(),
+                'disabledInteractive': disabledInteractive() || loading() 
+            }"
             [disabled]="disabled()"    
             [disableRipple]="disableRipple()" 
             [disabledInteractive]="disabledInteractive()"
@@ -61,19 +65,21 @@
 
         @if(loading())
         {
-            <mat-spinner class="matSpinnerBtnLoader" diameter="35"></mat-spinner>
+            <mat-spinner diameter="35"></mat-spinner>
         }
         @else
         {
-            <mat-icon>{{ icon() }}</mat-icon>
-            {{ label() }}
+            <ng-container>
+                <mat-icon>{{ icon() }}</mat-icon>
+                <span>{{ label() }}</span>
+            </ng-container>
         }
     </button>
     }
     @else
     {
         <button matFab
-                [class.disabledInteractive]="disabledInteractive()"
+                [class.disabledInteractive]="disabledInteractive() || loading()"
                 [disabled]="disabled()"    
                 [disableRipple]="disableRipple()" 
                 [disabledInteractive]="disabledInteractive()"
@@ -85,7 +91,7 @@
 
             @if(loading())
             {
-                <mat-spinner class="matSpinnerBtnLoader" diameter="35"></mat-spinner>
+                <mat-spinner diameter="35"></mat-spinner>
             }
             @else
             {
@@ -100,7 +106,7 @@
                 'btnLoader': true, 
                 'btnLoaderText': matButton() == 'text', 
                 'btnLoaderMargin': icon() && label(),
-                'disabledInteractive': disabledInteractive()
+                'disabledInteractive': disabledInteractive() || loading()
             }"
             [disabled]="disabled()"
             [disableRipple]="disableRipple()" 
