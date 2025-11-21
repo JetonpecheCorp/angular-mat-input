@@ -4,6 +4,13 @@ Rend moins pénible de faire des inputs de angular matérial.
 Les erreurs sont implémentées et traduite dans 5 langues (anglais, francais, espagnol, italien et portugais) selon la **langue du navigateur.**    
 **Par defaut anglais**
 
+# Information
+
+Signal form pas encore compatible avec angular material
+
+- 1.1.11 => angular 20.3.0
+- 1.2.x => angular 21
+
 # Configuration
 
 ```js
