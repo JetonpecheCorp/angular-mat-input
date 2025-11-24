@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Pipe, PipeTransform } from '@angular/core';
 import { TraductionService } from './traductionService';
 
@@ -15,7 +14,17 @@ export class TraductionPipe implements PipeTransform
     let phrase = this.tradServ.get(value as string);
 
     if(args)
-      return phrase.replace("{var}", args[0] as string);
+    {
+      const VALEUR = args[0] as string;
+
+      if(VALEUR.match(/^\d{4}-\d{2}-\d{2}$/))
+      {
+        let date = new Date(VALEUR).toLocaleString().split(" ")[0];
+        return phrase.replace("{var}", date);
+      }
+
+      return phrase.replace("{var}", (args[0] as Date).toLocaleString().split(" ")[0]);
+    }
 
     return phrase;
   }
