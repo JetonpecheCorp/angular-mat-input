@@ -74,7 +74,7 @@ export class InputDate implements ControlValueAccessor, OnInit
         const validator = this.ngControl.control?.validator;
     
         if(!validator)
-        return;
+            return;
 
         let erreur = validator(new FormControl(new Date(0, 0)));
         

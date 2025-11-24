@@ -7,9 +7,10 @@
     }
 
     <input  matInput 
+            [formControl]="control"
             [matDatepicker]="picker" 
             [matDatepickerFilter]="dateFilter"
-            [disabled]="disabledPartial()"
+            [readonly]="disabledPartial()"
             [min]="min()" 
             [max]="max()">
 
@@ -21,7 +22,7 @@
             }
         </mat-datepicker-toggle>
 
-    <mat-datepicker [disabled]="disabledPartial() ? false : disabledPartial()" [touchUi]="touchUi()" #picker></mat-datepicker>
+    <mat-datepicker [disabled]="control.disabled ? true : !disabledPartial()" [touchUi]="touchUi()" #picker></mat-datepicker>
 
     @if (control.hasError('required')) 
     {
