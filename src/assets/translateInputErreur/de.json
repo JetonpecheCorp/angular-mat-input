@@ -1,0 +1,14 @@
+{
+    "required": "Dieses Feld ist erforderlich",
+    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "minLength": "Das Feld muss mindestens {var} Zeichen enthalten",
+    "maxLength": "Das Feld darf maximal {var} Zeichen enthalten",
+    "password": "Das Feld muss 1 Zahl, 1 Großbuchstaben, 1 Sonderzeichen und mindestens 8 Zeichen enthalten",
+    "min": "Der Wert muss mindestens {var} betragen",
+    "max": "Der Wert darf maximal {var} betragen",
+    "minDate": "Das Datum darf nicht vor dem {var} liegen",
+    "maxDate": "Das Datum darf nicht nach dem {var} liegen",
+
+    "fichierTxt": "Ziehen Sie Ihre Dateien hierher oder klicken Sie hier",
+    "requiredAutoCompleteSelected": "Sie müssen eine vorhandene Option auswählen"
+}

@@ -4,10 +4,10 @@
     "minLength": "The field must contain at least {var} characters",
     "maxLength": "The field must contain at most {var} characters",
     "password": "The field must contain 1 number, 1 uppercase letter, 1 special character and be at least 8 characters long",
-    "min": "The value must be at least",
-    "max": "The value must be at most",
-    "minDate": "The date cannot be earlier than",
-    "maxDate": "The date cannot be later than",
+    "min": "The value must be at least {var}",
+    "max": "The value must be at most {var}",
+    "minDate": "The date cannot be earlier than {var}",
+    "maxDate": "The date cannot be later than {var}",
 
     "fichierTxt": "Drag and drop your files or click here",
     "requiredAutoCompleteSelected": "This field is required, please select an option"

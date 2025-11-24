@@ -4,10 +4,10 @@
   "minLength": "El campo debe contener al menos {var} caracteres",
   "maxLength": "El campo debe contener como máximo {var} caracteres",
   "password": "El campo debe contener 1 número, 1 mayúscula, 1 carácter especial y tener al menos 8 caracteres",
-  "min": "El valor debe ser de al menos",
-  "max": "El valor debe ser como máximo de",
-  "minDate": "La fecha no puede ser anterior a",
-  "maxDate": "La fecha no puede ser posterior a",
+  "min": "El valor debe ser de al menos {var}",
+  "max": "El valor debe ser como máximo de {var}",
+  "minDate": "La fecha no puede ser anterior a {var}",
+  "maxDate": "La fecha no puede ser posterior a {var}",
 
   "fichierTxt": "Arrastra y suelta tus archivos o haz clic aquí",
   "requiredAutoCompleteSelected": "El campo es obligatorio, seleccione una opción"

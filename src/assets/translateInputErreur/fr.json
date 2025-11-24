@@ -4,10 +4,10 @@
     "minLength": "Le champ doit contenir au moins {var} caractères",
     "maxLength": "Le champ doit contenir au maximum {var} caractères",
     "password": "Le champ doit contenir 1 chiffre, 1 majuscule, 1 caractère spécial et d'au moins 8 caractères",
-    "min": "La valeur doit être au moins de",
-    "max": "La valeur doit au maximum de",
-    "minDate": "La date ne peut pas être antérieur à",
-    "maxDate": "La date ne peut pas être supérieur à",
+    "min": "La valeur doit être au moins de {var}",
+    "max": "La valeur doit être au maximum de {var}",
+    "minDate": "La date ne peut pas être antérieur à {var}",
+    "maxDate": "La date ne peut pas être supérieur à {var}",
 
     "fichierTxt": "Glissez-déposez vos fichiers ou cliquez ici",
     "requiredAutoCompleteSelected": "Le champ est obligatoire en selectionnant une option"
