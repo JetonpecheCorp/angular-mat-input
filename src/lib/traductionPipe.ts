@@ -13,19 +13,17 @@ export class TraductionPipe implements PipeTransform
   { 
     let phrase = this.tradServ.get(value as string);
 
-    if(args)
+    if(args.length == 0)
+      return phrase;
+  
+    const VALEUR = args[0] as string;
+
+    if(VALEUR.match(/^\d{4}-\d{2}-\d{2}$/))
     {
-      const VALEUR = args[0] as string;
-
-      if(VALEUR.match(/^\d{4}-\d{2}-\d{2}$/))
-      {
-        let date = new Date(VALEUR).toLocaleString().split(" ")[0];
-        return phrase.replace("{var}", date);
-      }
-
-      return phrase.replace("{var}", (args[0] as Date).toLocaleString().split(" ")[0]);
+      let date = new Date(VALEUR).toLocaleString().split(" ")[0];
+      return phrase.replace("{var}", date);
     }
 
-    return phrase;
+    return phrase.replace("{var}", (args[0] as Date).toLocaleString().split(" ")[0]); 
   }
 }
