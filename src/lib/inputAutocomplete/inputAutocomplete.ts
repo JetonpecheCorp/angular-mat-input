@@ -55,8 +55,21 @@ export class InputAutocomplete implements ControlValueAccessor, OnInit, OnChange
 
     ngOnChanges(changes: SimpleChanges): void 
     {
+        console.log(changes);
+        console.log(this.formControlInterne);
+        
+        
+
         if(changes["dataSource"])
+        {
             this.dataSourceClone.set(changes["dataSource"].currentValue);
+
+            if(this.ngControl.control?.value && !changes["dataSource"].firstChange)
+            {   
+                let info = this.dataSource().find(x => x.value == this.ngControl.control?.value)
+                this.formControlInterne.setValue(info);
+            }
+        }
     }
 
     protected AffichageMatOption(_option: AutocompleteDataSource): string 
