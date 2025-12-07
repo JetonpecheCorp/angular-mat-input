@@ -16,7 +16,7 @@
 
     @if(showMaxLength())
     {
-        <mat-hint align="end">{{ control.value.length }} / {{ maxLength() }}</mat-hint>
+        <mat-hint align="end">{{ control.value?.length ?? 0 }} / {{ maxLength() }}</mat-hint>
     }
     
     @if (control.hasError('required')) 

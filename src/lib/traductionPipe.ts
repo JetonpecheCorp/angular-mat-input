@@ -18,6 +18,9 @@ export class TraductionPipe implements PipeTransform
   
     const VALEUR = args[0] as string;
 
+    if(VALEUR == null || VALEUR == undefined)
+      return phrase;
+
     if(VALEUR.match(/^\d{4}-\d{2}-\d{2}$/))
     {
       let date = new Date(VALEUR).toLocaleString().split(" ")[0];

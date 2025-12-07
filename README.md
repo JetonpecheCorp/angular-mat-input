@@ -1,7 +1,7 @@
 # Angular mat input
 
 Rend moins pénible de faire des inputs de angular matérial.   
-Les erreurs sont implémentées et traduite dans 5 langues (anglais, francais, espagnol, italien, portugais et allemand) selon la **langue du navigateur.**    
+Les erreurs sont implémentées et traduite dans 6 langues (anglais, francais, espagnol, italien, portugais et allemand) selon la **langue du navigateur.**    
 **Par defaut anglais**
 
 # Information

@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, OnInit, output, signal, Self } from '@angular/core';
+import { booleanAttribute, Component, input, OnInit, output, signal, Self, model, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,7 +13,7 @@ import { MatOptionModule } from '@angular/material/core';
   templateUrl: './inputAutocomplete.html',
   imports: [MatOptionModule, TraductionPipe, MatAutocompleteModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule]
 })
-export class InputAutocomplete implements ControlValueAccessor, OnInit
+export class InputAutocomplete implements ControlValueAccessor, OnInit, OnChanges
 {
     /** Event autocomplete value changed */
     autocompleteChange = output<string>(); 
@@ -26,7 +26,7 @@ export class InputAutocomplete implements ControlValueAccessor, OnInit
 
     label = input<string>();
     placeholder = input<string>();
-    dataSource = input.required<AutocompleteDataSource[]>();
+    dataSource = model.required<AutocompleteDataSource[]>();
 
     matAutocompletePosition = input<"auto" | "above" | "below">("auto");
 
@@ -49,10 +49,14 @@ export class InputAutocomplete implements ControlValueAccessor, OnInit
 
     ngOnInit(): void 
     {
-        this.dataSourceClone.set(this.dataSource());
-
         if (this.ngControl.control?.hasValidator(Validators.required))
             this.formControlInterne.setValidators(Validators.required);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void 
+    {
+        if(changes["dataSource"])
+            this.dataSourceClone.set(changes["dataSource"].currentValue);
     }
 
     protected AffichageMatOption(_option: AutocompleteDataSource): string 
