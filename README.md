@@ -205,7 +205,7 @@ let form = new FormGroup({
 # Input file button
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`: option
 - `label`: Nom de l'input
 - `icon`: Icon du bouton (mat icon)
 - `accept`: Liste des extensions de fichier acceptés
@@ -215,15 +215,23 @@ let form = new FormGroup({
 - `matFab`: Style du bouton
 - `matIconButton`: Style du bouton
 - `extended`: Permet de mettre un label sur un bouton `matFab`
+- `fileChange`: Permet de récupérer le ou les fichier(s) choisi(s)
 
 ## exemple
 ```html
 <jp-input-file-btn matFab extended label="Info en plus" formControlName="fichier" />
+<jp-input-file-btn multiple label="Info en plus" (fileChange)="Info($event)" />
 ```
 ```js
 let form = new FormGroup({
-   fichier: new FormControl<FileList>(null)
+   // Add multiple attribut => FileList
+   fichier: new FormControl<File>(null)
 });
+
+Info(_files: FileList)
+{
+   console.log(_files);
+}
 ```
 
 # Input fil drop zone

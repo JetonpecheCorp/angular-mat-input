@@ -1,5 +1,5 @@
-import { booleanAttribute, Component, input, Self, signal } from '@angular/core';
-import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { booleanAttribute, Component, input, Optional, output, Self, signal } from '@angular/core';
+import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton } from "@angular/material/button";
 
@@ -11,6 +11,8 @@ import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIcon
 })
 export class InputFile implements ControlValueAccessor
 {
+    fileChange = output<FileList | File>();
+
     label = input<string>();
     icon = input<string>();
     accept = input<string>();
@@ -24,20 +26,14 @@ export class InputFile implements ControlValueAccessor
     
     protected disabled = signal<boolean>(false);
     
-    private onChange = (_valeur: FileList) => {};
+    private onChange = (_valeur: FileList | File) => {};
     private onTouched = () => {};
 
-    protected get control(): FormControl 
-    {
-        return this.ngControl?.control as FormControl;
-    }
-
     // @Self() garantit qu'on récupère l'instance de NgControl de notre propre élément.
-    constructor(@Self() private ngControl: NgControl) 
+    constructor(@Optional() @Self() private ngControl: NgControl) 
     {
-        // On lie l'implémentation du ControlValueAccessor de notre composant
-        // à la directive NgControl d'Angular.
-        this.ngControl.valueAccessor = this;
+        if(ngControl)
+            this.ngControl.valueAccessor = this;
     }
 
     protected Ouvrir(_event: Event, _inputFile: HTMLElement)
@@ -49,8 +45,21 @@ export class InputFile implements ControlValueAccessor
     protected InputChange(_event: Event): void
     {
         const LISTE = (_event.target as any).files;
+
+        if(!LISTE || LISTE.length == 0)
+            return;
         
-        this.onChange(LISTE);
+        if(this.multiple())
+        {
+            this.onChange(LISTE);
+            this.fileChange.emit(LISTE);
+        }
+        else
+        {
+            this.onChange(LISTE[0]);
+            this.fileChange.emit(LISTE[0]);
+        }
+
         this.onTouched();
     }
 
