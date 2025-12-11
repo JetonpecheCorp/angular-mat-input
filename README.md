@@ -215,7 +215,7 @@ let form = new FormGroup({
 - `matFab`: Style du bouton
 - `matIconButton`: Style du bouton
 - `extended`: Permet de mettre un label sur un bouton `matFab`
-- `fileChange`: Permet de récupérer le ou les fichier(s) choisi(s)
+- `fileChange`: Event permet de récupérer le ou les fichier(s) choisi(s)
 
 ## exemple
 ```html
