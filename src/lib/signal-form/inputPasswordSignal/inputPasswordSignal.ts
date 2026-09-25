@@ -1,19 +1,19 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, output } from "@angular/core";
-import { TraductionPipe } from "../../traductionPipe";
-import { MatButtonModule } from "@angular/material/button";
-import { FloatLabelType, MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatIconModule } from "@angular/material/icon";
-import { FieldTree, FormField, ValidationError } from "@angular/forms/signals";
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, OnInit, Self, signal } from '@angular/core';
+import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { TraductionPipe } from '../../traductionPipe';
+import { FieldTree, ValidationError, FormField } from '@angular/forms/signals';
 
 @Component({
-    selector: 'jp-signal-input-text',
-    standalone: true,
-    templateUrl: './InputTextSignal.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [TraductionPipe, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, FormField]
+  selector: 'jp-signal-input-password',
+  standalone: true,
+  templateUrl: './inputPasswordSignal.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TraductionPipe, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, FormField]
 })
-export class InputTextSignal
+export class InputPasswordSignal
 {
     readonly field = input.required<FieldTree<string>>();
 
@@ -21,18 +21,13 @@ export class InputTextSignal
     placeholder = input<string>('');
     type = input<string>('text');
     hint = input<string>();
-    suffixIcon = input<string>();
-    prefixIcon = input<string>();
-
-    /** Événement de clic sur l'icône bouton */
-    clicked = output<void>();
-
-    /** Convertir l'icône en bouton cliquable */
-    isBtnIcon = input(false, { transform: booleanAttribute });
 
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
+    hiddenButtonSwitch = input(false, { transform: booleanAttribute });
     showMaxLength = input(false, { transform: booleanAttribute });
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
+
+    protected estCacher = signal<boolean>(true);
 
     /** Valeur textuelle courante pour le compteur */
     protected valeurLongueur = computed(() => (this.field()().value() ?? '').length);
@@ -41,6 +36,7 @@ export class InputTextSignal
     {
         let liste = this.field()().errors() ?? [];
         const map: Record<string, ValidationError.WithFieldTree> = {};
+
         for (const element of liste)
             map[element.kind] = element;
 
@@ -59,8 +55,11 @@ export class InputTextSignal
         return typeof etat?.minLength == 'function' ? etat.minLength() : null;
     });
 
-    protected Btnclicker(): void
-    {
-        this.clicked.emit();
+    protected longeurMinMdp = computed<number>(() => (this.field()().errors().find(x => x.kind == "password") as any).min);
+
+    protected ClickEvent(_event: Event): void
+    {           
+        this.estCacher.set(!this.estCacher());
+        _event.stopPropagation();
     }
 }

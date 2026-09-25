@@ -1,0 +1,14 @@
+{
+  "required": "此字段为必填项",
+  "email": "请输入有效的电子邮箱地址",
+  "minLength": "此字段必须至少包含 {var} 个字符",
+  "maxLength": "此字段最多只能包含 {var} 个字符",
+  "password": "密码必须至少包含 {var} 个字符、1 个数字、1 个大写字母和 1 个特殊字符",
+  "min": "数值至少应为 {var}",
+  "max": "数值最多不能超过 {var}",
+  "minDate": "日期不能早于 {var}",
+  "maxDate": "日期不能晚于 {var}",
+
+  "fichierTxt": "将文件拖放到此处或点击此处上传",
+  "requiredAutoCompleteSelected": "此字段为必填项，请选择一个选项"
+}

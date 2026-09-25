@@ -1,0 +1,14 @@
+{
+  "required": "To pole jest wymagane",
+  "email": "Wprowadź prawidłowy adres e-mail",
+  "minLength": "Pole musi zawierać co najmniej {var} znaków",
+  "maxLength": "Pole może zawierać maksymalnie {var} znaków",
+  "password": "Hasło musi zawierać co najmniej {var} znaków, 1 cyfrę, 1 wielką literę i 1 znak specjalny",
+  "min": "Wartość musi wynosić co najmniej {var}",
+  "max": "Wartość może wynosić maksymalnie {var}",
+  "minDate": "Data nie może być wcześniejsza niż {var}",
+  "maxDate": "Data nie może być późniejsza niż {var}",
+
+  "fichierTxt": "Przeciągnij i upuść pliki tutaj lub kliknij tutaj",
+  "requiredAutoCompleteSelected": "To pole jest wymagane poprzez wybranie opcji"
+}

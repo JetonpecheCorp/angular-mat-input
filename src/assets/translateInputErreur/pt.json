@@ -1,14 +1,14 @@
 {
-    "required": "O campo é obrigatório",
-    "email": "Por favor, insira um endereço de e-mail válido",
-    "minLength": "O campo deve conter pelo menos {var} caracteres",
-    "maxLength": "O campo deve conter no máximo {var} caracteres",
-    "password": "O campo deve conter 1 número, 1 letra maiúscula, 1 caractere especial e ter pelo menos 8 caracteres",
-    "min": "O valor deve ser no mínimo {var}",
-    "max": "O valor deve ser no máximo {var}",
-    "minDate": "A data não pode ser anterior a {var}",
-    "maxDate": "A data não pode ser posterior a {var}",
-
-    "fichierTxt": "Arraste e solte seus arquivos ou clique aqui",
-    "requiredAutoCompleteSelected": "O campo é obrigatório, selecione uma opção"
+  "required": "Este campo é obrigatório",
+  "email": "Por favor, insira um endereço de e-mail válido",
+  "minLength": "O campo deve conter no mínimo {var} caracteres",
+  "maxLength": "O campo deve conter no máximo {var} caracteres",
+  "password": "O campo deve conter pelo menos {var} caracteres, 1 número, 1 letra maiúscula e 1 caractere especial",
+  "min": "O valor deve ser de no mínimo {var}",
+  "max": "O valor deve ser de no máximo {var}",
+  "minDate": "A data não pode ser anterior a {var}",
+  "maxDate": "A data não pode ser posterior a {var}",
+  
+  "fichierTxt": "Arraste e solte seus arquivos ou clique aqui",
+  "requiredAutoCompleteSelected": "Este campo é obrigatório ao selecionar uma opção"
 }

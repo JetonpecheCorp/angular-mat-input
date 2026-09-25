@@ -1,0 +1,14 @@
+{
+  "required": "Detta fält är obligatoriskt",
+  "email": "Ange en giltig e-postadress",
+  "minLength": "Fältet måste innehålla minst {var} tecken",
+  "maxLength": "Fältet får innehålla högst {var} tecken",
+  "password": "Lösenordet måste innehålla minst {var} tecken, 1 siffra, 1 stor bokstav och 1 specialtecken",
+  "min": "Värdet måste vara minst {var}",
+  "max": "Värdet får inte överstiga {var}",
+  "minDate": "Datumet kan inte vara tidigare än {var}",
+  "maxDate": "Datumet kan inte vara senare än {var}",
+
+  "fichierTxt": "Dra och släpp dina filer här eller klicka här",
+  "requiredAutoCompleteSelected": "Detta fält är obligatoriskt genom att välja ett alternativ"
+}

@@ -1,0 +1,14 @@
+{
+  "required": "Dit veld is verplicht",
+  "email": "Voer een geldig e-mailadres in",
+  "minLength": "Het veld moet ten minste {var} tekens bevatten",
+  "maxLength": "Het veld mag maximaal {var} tekens bevatten",
+  "password": "Moet ten minste {var} tekens bevatten, 1 cijfer, 1 hoofdletter en 1 speciaal teken",
+  "min": "De waarde moet minimaal {var} zijn",
+  "max": "De waarde mag maximaal {var} zijn",
+  "minDate": "De datum mag niet vóór {var} liggen",
+  "maxDate": "De datum mag niet na {var} liggen",
+
+  "fichierTxt": "Sleep je bestanden hierheen of klik hier",
+  "requiredAutoCompleteSelected": "Dit veld is verplicht door een optie te selecteren"
+}

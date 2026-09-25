@@ -1,12 +1,12 @@
 # Angular mat input
 
 Rend moins pénible de faire des inputs de angular matérial.   
-Les erreurs sont implémentées et traduite dans 6 langues (anglais, francais, espagnol, italien, portugais et allemand) selon la **langue du navigateur.**    
-**Par defaut anglais**
+Les erreurs sont implémentées et traduite dans 13 langues (Anglais, français, espagnol, italien, portugais, allemand, arabe, japonais, néerlandais, polonais, russe, suédois, mandarin simplifié) selon la langue du navigateur ou via un paramètre dans le providers  
+**Langue non trouvée, par défaut anglais**
 
 # Information
-
-Signal form pas encore compatible avec angular material
+Compatible `signal form` et `reactive form`
+**NOTE:** `Signal form` possibilité de mettre un message custom en remplacement du par défaut
 
 - 1.1.11 => angular 20.3.0
 - 1.2.x => angular 21
@@ -18,10 +18,10 @@ Signal form pas encore compatible avec angular material
 import { provideJpMatInput } from '@jetonpeche/angular-mat-input';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-   // ...
-    provideJpMatInput()
-  ]
+   providers: [
+      // ...
+      provideJpMatInput({ lang: "fr" }) // option
+   ]
 };
 ```
 ```json
@@ -57,8 +57,20 @@ export const appConfig: ApplicationConfig = {
 ## exemple
 ```html
 <jp-input-text label="Nom" formControlName="nom" />
+<jp-signal-input-text label="Nom" [field]="profile.username" />
 ```
 ```js
+let profile = signal<any>({
+   username: ''
+});
+
+let profileForm = form(this.profile, (path) => {
+   required(path.username);
+
+   // Le message remplace celui par defaut
+   maxLength(path.username, 3, { message: 'Custom message' })
+});
+
 let form = new FormGroup({
    nom: new FormControl(
       "",
@@ -84,8 +96,20 @@ let form = new FormGroup({
 ## exemple
 ```html
 <jp-input-number label="Age" formControlName="age" />
+<jp-signal-input-number label="Age" [field]="profile.age" />
 ```
 ```js
+let profile = signal<any>({
+   age: 0
+});
+
+let profileForm = form(this.profile, (path) => {
+   required(path.username);
+
+   // Le message remplace celui par defaut
+   max(path.username, 100, { message: 'Custom message' });
+});
+
 let form = new FormGroup({
    age: new FormControl(
       "",
