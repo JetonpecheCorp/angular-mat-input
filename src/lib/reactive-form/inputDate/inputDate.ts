@@ -7,7 +7,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { EDay } from './EDay';
 import { EMonth } from './EMonth';
-import { TraductionPipe } from '../traductionPipe';
+import { TraductionPipe } from '../../traductionPipe';
 
 @Component({
   selector: 'jp-input-date',
@@ -53,8 +53,8 @@ export class InputDate implements ControlValueAccessor, OnInit
     /** Désactiver le dimanche et lundi */
     disabledSundayAndMonday = input(false, { transform: booleanAttribute });
 
-    protected min = signal<number | null>(null);
-    protected max = signal<number | null>(null);
+    protected min = signal<Date | null>(null);
+    protected max = signal<Date | null>(null);
 
     protected get control(): FormControl 
     {

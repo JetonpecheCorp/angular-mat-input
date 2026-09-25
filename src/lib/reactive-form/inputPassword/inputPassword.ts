@@ -3,27 +3,27 @@ import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } fro
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { TraductionPipe } from '../traductionPipe';
+import { MatButtonModule } from '@angular/material/button';
+import { TraductionPipe } from '../../traductionPipe';
 
 @Component({
-  selector: 'jp-input-text',
+  selector: 'jp-input-password',
   standalone: true,
-  templateUrl: './inputText.html',
-  //styleUrl: './input.css',
-  imports: [TraductionPipe, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
+  templateUrl: './inputPassword.html',
+  //styleUrl: './inputNumber.css',
+  imports: [TraductionPipe, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
-export class InputText implements ControlValueAccessor, OnInit
+export class InputPassword implements ControlValueAccessor, OnInit
 {
     label = input<string>();
     placeholder = input<string>();
-    type = input<string>("text");
-    suffixIcon = input<string>();
-    prefixIcon = input<string>();
 
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
-    showMaxLength = input(false, { transform: booleanAttribute });
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
+    hiddenButtonSwitch = input(false, { transform: booleanAttribute });
+    showMaxLength = input(false, { transform: booleanAttribute });
 
+    protected estCacher = signal<boolean>(true);
     protected minLength = signal<number | null>(null);
     protected maxLength = signal<number | null>(null);
 
@@ -56,6 +56,12 @@ export class InputText implements ControlValueAccessor, OnInit
 
         if (erreur?.['maxlength']) 
             this.maxLength.set(erreur['maxlength'].requiredLength);    
+    }
+
+    protected ClickEvent(_event: Event): void
+    {
+        this.estCacher.set(!this.estCacher());
+        _event.stopPropagation();
     }
 
     // Pas utiliser, sert a rendre compatible pour le constructor

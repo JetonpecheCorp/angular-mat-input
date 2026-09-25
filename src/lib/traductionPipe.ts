@@ -9,7 +9,7 @@ export class TraductionPipe implements PipeTransform
 {
     private tradServ = inject(TraductionService);
 
-  transform(value: unknown, ...args: unknown[]): unknown 
+  transform(value: unknown, ...args: any[]): unknown 
   {
     let phrase = this.tradServ.get(value as string);
 

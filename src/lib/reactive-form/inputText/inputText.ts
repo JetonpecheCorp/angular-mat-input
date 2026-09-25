@@ -1,23 +1,30 @@
-import { booleanAttribute, Component, input, OnInit, Self, signal } from '@angular/core';
+import { booleanAttribute, Component, input, OnInit, output, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { TraductionPipe } from '../traductionPipe';
+import { TraductionPipe } from '../../traductionPipe';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'jp-textarea',
+  selector: 'jp-input-text',
   standalone: true,
-  templateUrl: './inputTextarea.html',
-  //styleUrl: './input.css',
-  imports: [TraductionPipe, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
+  templateUrl: './inputText.html',
+  imports: [TraductionPipe, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
-export class InputTextarea implements ControlValueAccessor, OnInit
+export class InputText implements ControlValueAccessor, OnInit
 {
     label = input<string>();
     placeholder = input<string>();
-    rows = input<number | null>(null);
-    cols = input<number |null>(null);
+    type = input<string>("text");
+    suffixIcon = input<string>();
+    prefixIcon = input<string>();
+
+    /** Icon button click event */
+    clicked = output();
+
+    /** Convert icon to button icon */
+    isBtnIcon = input(false, { transform: booleanAttribute });
 
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
     showMaxLength = input(false, { transform: booleanAttribute });
@@ -26,7 +33,7 @@ export class InputTextarea implements ControlValueAccessor, OnInit
     protected minLength = signal<number | null>(null);
     protected maxLength = signal<number | null>(null);
 
-    protected get control(): FormControl 
+    protected get control(): FormControl
     {
         return this.ngControl?.control as FormControl;
     }
@@ -55,6 +62,12 @@ export class InputTextarea implements ControlValueAccessor, OnInit
 
         if (erreur?.['maxlength']) 
             this.maxLength.set(erreur['maxlength'].requiredLength);    
+    }
+
+    protected Btnclicker(): void
+    {
+        if(this.clicked)
+            this.clicked.emit();
     }
 
     // Pas utiliser, sert a rendre compatible pour le constructor

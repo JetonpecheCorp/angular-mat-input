@@ -1,0 +1,58 @@
+<mat-form-field [floatLabel]="floatLabel()" [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if (label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input matInput [type]="type()" [formField]="field()" [placeholder]="placeholder()">
+
+    @if (suffixIcon() && isBtnIcon()) 
+    {
+        <button matSuffix matIconButton [aria-label]="suffixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ suffixIcon() }}</mat-icon>
+        </button>
+    }
+    @else if (suffixIcon() && !isBtnIcon()) 
+    {
+        <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    }
+
+    @if (prefixIcon() && isBtnIcon())
+    {
+        <button matSuffix matIconButton [aria-label]="prefixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ prefixIcon() }}</mat-icon>
+        </button>
+    }
+    @else if (prefixIcon() && !isBtnIcon())
+    {
+        <mat-icon matSuffix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    @if (hint())
+    {
+        <mat-hint>{{ hint() }}</mat-hint>
+    }
+
+    @if (showMaxLength() && longeurMax())
+    {
+        <mat-hint align="end">{{ valeurLongueur() }} / {{ longeurMax() }}</mat-hint>
+    }
+
+    @if (listeErreur()['required']) 
+    {
+        <mat-error>{{ listeErreur()['required'].message ?? "required" | traduction }}</mat-error>
+    }
+    @else if (listeErreur()['minlength']) 
+    {
+        <mat-error>{{ listeErreur()['minlength'].message ?? "minLength" | traduction:longeurMin() }}</mat-error>
+    }
+    @else if (listeErreur()['maxlength'])
+    {
+        <mat-error>{{ listeErreur()['maxlength'].message ?? "maxLength" | traduction:longeurMax() }}</mat-error>
+    }
+    @else if (listeErreur()['email'])
+    {
+        <mat-error>{{ listeErreur()['email'].message ?? "email" | traduction }}</mat-error>
+    }
+</mat-form-field>

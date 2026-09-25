@@ -3,29 +3,31 @@ import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } fro
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { TraductionPipe } from '../traductionPipe';
+import { NgClass } from '@angular/common';
+import { TraductionPipe } from '../../traductionPipe';
 
 @Component({
-  selector: 'jp-input-password',
+  selector: 'jp-input-number',
   standalone: true,
-  templateUrl: './inputPassword.html',
-  //styleUrl: './inputNumber.css',
-  imports: [TraductionPipe, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
+  templateUrl: './inputNumber.html',
+  styleUrl: './inputNumber.css',
+  imports: [TraductionPipe, NgClass, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
-export class InputPassword implements ControlValueAccessor, OnInit
+export class InputNumber implements ControlValueAccessor, OnInit
 {
     label = input<string>();
     placeholder = input<string>();
+    suffixIcon = input<string>();
+    prefixIcon = input<string>();
+    step = input<number | null>(null);
 
+    textRight = input(false, { transform: booleanAttribute });
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
-    hiddenButtonSwitch = input(false, { transform: booleanAttribute });
-    showMaxLength = input(false, { transform: booleanAttribute });
+    hiddenArrows = input(false, { transform: booleanAttribute });
 
-    protected estCacher = signal<boolean>(true);
-    protected minLength = signal<number | null>(null);
-    protected maxLength = signal<number | null>(null);
+    protected min = signal<number | null>(null);
+    protected max = signal<number | null>(null);
 
     protected get control(): FormControl 
     {
@@ -47,21 +49,15 @@ export class InputPassword implements ControlValueAccessor, OnInit
         if(!validator)
         return;
 
-        let erreur = validator(new FormControl());
+        let erreur = validator(new FormControl(-Infinity));
 
-        if (erreur?.['minlength']) 
-            this.minLength.set(erreur['minlength'].requiredLength);
+        if (erreur?.['min']) 
+            this.min.set(erreur['min'].min);
 
-        erreur = validator(new FormControl('a'.repeat(10_000)));
+        erreur = validator(new FormControl(Infinity));
 
-        if (erreur?.['maxlength']) 
-            this.maxLength.set(erreur['maxlength'].requiredLength);    
-    }
-
-    protected ClickEvent(_event: Event): void
-    {
-        this.estCacher.set(!this.estCacher());
-        _event.stopPropagation();
+        if (erreur?.['max']) 
+            this.max.set(erreur['max'].max);    
     }
 
     // Pas utiliser, sert a rendre compatible pour le constructor

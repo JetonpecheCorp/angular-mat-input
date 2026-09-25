@@ -3,31 +3,28 @@ import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } fro
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { NgClass } from '@angular/common';
-import { TraductionPipe } from '../traductionPipe';
+import { TraductionPipe } from '../../traductionPipe';
 
 @Component({
-  selector: 'jp-input-number',
+  selector: 'jp-textarea',
   standalone: true,
-  templateUrl: './inputNumber.html',
-  styleUrl: './inputNumber.css',
-  imports: [TraductionPipe, NgClass, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
+  templateUrl: './inputTextarea.html',
+  //styleUrl: './input.css',
+  imports: [TraductionPipe, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
-export class InputNumber implements ControlValueAccessor, OnInit
+export class InputTextarea implements ControlValueAccessor, OnInit
 {
     label = input<string>();
     placeholder = input<string>();
-    suffixIcon = input<string>();
-    prefixIcon = input<string>();
-    step = input<number | null>(null);
+    rows = input<number | null>(null);
+    cols = input<number |null>(null);
 
-    textRight = input(false, { transform: booleanAttribute });
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
+    showMaxLength = input(false, { transform: booleanAttribute });
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
-    hiddenArrows = input(false, { transform: booleanAttribute });
 
-    protected min = signal<number | null>(null);
-    protected max = signal<number | null>(null);
+    protected minLength = signal<number | null>(null);
+    protected maxLength = signal<number | null>(null);
 
     protected get control(): FormControl 
     {
@@ -49,15 +46,15 @@ export class InputNumber implements ControlValueAccessor, OnInit
         if(!validator)
         return;
 
-        let erreur = validator(new FormControl(-Infinity));
+        let erreur = validator(new FormControl());
 
-        if (erreur?.['min']) 
-            this.min.set(erreur['min'].min);
+        if (erreur?.['minlength']) 
+            this.minLength.set(erreur['minlength'].requiredLength);
 
-        erreur = validator(new FormControl(Infinity));
+        erreur = validator(new FormControl('a'.repeat(10_000)));
 
-        if (erreur?.['max']) 
-            this.max.set(erreur['max'].max);    
+        if (erreur?.['maxlength']) 
+            this.maxLength.set(erreur['maxlength'].requiredLength);    
     }
 
     // Pas utiliser, sert a rendre compatible pour le constructor

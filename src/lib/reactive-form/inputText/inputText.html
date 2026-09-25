@@ -13,14 +13,28 @@
             [attr.minlength]="minLength()"
             [attr.maxlength]="maxLength()">
 
-    @if(suffixIcon())
+    @if(suffixIcon() && !isBtnIcon())
     {
         <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
     }
 
-    @if(prefixIcon())
+    @if(prefixIcon() && !isBtnIcon())
     {
         <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    @if(suffixIcon() && isBtnIcon())
+    {
+        <button matSuffix matIconButton [aria-label]="suffixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ suffixIcon() }}</mat-icon>
+        </button>
+    }
+
+    @if(prefixIcon() && isBtnIcon())
+    {
+        <button matPrefix matIconButton [aria-label]="prefixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ prefixIcon() }}</mat-icon>
+        </button>
     }
 
     @if(showMaxLength())

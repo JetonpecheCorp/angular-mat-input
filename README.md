@@ -48,9 +48,11 @@ export const appConfig: ApplicationConfig = {
    - text, url, search, tel, email, color
 - `suffixIcon`: Définir et place l'icon à gauche (mat icon)
 - `prefixIcon`: Définir et place l'icon à droite (mat icon)
+- `isBtnIcon`: Transforme l'icone en bouton
 - `floatLabel`: Bloquer le label en haut de l'input
 - `showMaxLength`: Affiche la longeur max d'une chaine en bas de l'input
 - `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
+- `clicked`: Event click du bouton icon
 
 ## exemple
 ```html

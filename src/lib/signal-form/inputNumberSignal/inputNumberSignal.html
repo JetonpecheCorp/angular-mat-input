@@ -1,0 +1,53 @@
+<mat-form-field [floatLabel]="floatLabel()" [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if (label())
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input matInput type="number" [step]="step()" [formField]="field()" [placeholder]="placeholder()">
+
+    @if (suffixIcon() && isBtnIcon()) 
+    {
+        <button matSuffix matIconButton [aria-label]="suffixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ suffixIcon() }}</mat-icon>
+        </button>
+    }
+    @else if (suffixIcon() && !isBtnIcon())
+    {
+        <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    }
+
+    @if (prefixIcon() && isBtnIcon())
+    {
+        <button matSuffix matIconButton [aria-label]="prefixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ prefixIcon() }}</mat-icon>
+        </button>
+    }
+    @else if (prefixIcon() && !isBtnIcon())
+    {
+        <mat-icon matSuffix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    @if (hint())
+    {
+        <mat-hint>{{ hint() }}</mat-hint>
+    }
+
+    @if (listeErreur()['required']) 
+    {
+        <mat-error>{{ listeErreur()['required'].message ?? "required" | traduction }}</mat-error>
+    }
+    @else if (listeErreur()['min'])
+    {
+        <mat-error>{{  "min" | traduction:min() }}</mat-error>
+    }
+    @else if (listeErreur()['max'])
+    {
+        <mat-error>{{ listeErreur()['max'].message ?? "max" | traduction:max() }}</mat-error>
+    }
+    @else if (listeErreur()['email'])
+    {
+        <mat-error>{{ listeErreur()['email'].message ?? "email" | traduction }}</mat-error>
+    }
+</mat-form-field>
