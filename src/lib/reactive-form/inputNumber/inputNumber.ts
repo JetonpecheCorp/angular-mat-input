@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, input, OnInit, Self, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttribute, OnInit, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +20,7 @@ export class InputNumber implements ControlValueAccessor, OnInit
     placeholder = input<string>();
     suffixIcon = input<string>();
     prefixIcon = input<string>();
-    step = input<number | null>(null);
+    step = input<number | null>(null, { transform: numberAttribute });
 
     textRight = input(false, { transform: booleanAttribute });
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });

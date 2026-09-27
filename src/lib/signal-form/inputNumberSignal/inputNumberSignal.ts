@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, output } from "@angular/core";
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, numberAttribute, output } from "@angular/core";
 import { TraductionPipe } from "../../traductionPipe";
 import { MatButtonModule } from "@angular/material/button";
 import { FloatLabelType, MatFormFieldModule } from "@angular/material/form-field";
@@ -19,7 +19,7 @@ export class InputNumberSignal
 
     label = input<string>();
     placeholder = input<string>('');
-    step = input<number>(0);
+    step = input<number>(0, { transform: numberAttribute });
     hint = input<string>();
     suffixIcon = input<string>();
     prefixIcon = input<string>();

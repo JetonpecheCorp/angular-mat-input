@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, numberAttribute } from '@angular/core';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,8 +19,8 @@ export class InputTextareaSignal
     label = input<string>();
     hint = input<string>();
     placeholder = input<string>('');
-    rows = input<number | null>(null);
-    cols = input<number |null>(null);
+    rows = input<number | null>(null, { transform: numberAttribute });
+    cols = input<number | null>(null, { transform: numberAttribute });
 
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
     showMaxLength = input(false, { transform: booleanAttribute });
