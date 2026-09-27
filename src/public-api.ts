@@ -21,6 +21,7 @@ export * from "./lib/signal-form/inputNumberSignal/inputNumberSignal";
 export * from "./lib/signal-form/inputPasswordSignal/inputPasswordSignal";
 export * from "./lib/signal-form/inputPasswordSignal/passwordValidatorSignal";
 export * from "./lib/signal-form/inputTextareaSignal/inputTextareaSignal";
+export * from "./lib/signal-form/inputFileSignal/inputFileSignal"
 
 export * from "./lib/buttonLoader/buttonLoader"
 export * from "./lib/provide"
