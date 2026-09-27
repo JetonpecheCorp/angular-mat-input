@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, output, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { DarkModeDirective } from './darkModeDirective';
 import { TraductionPipe } from '../../traductionPipe';
@@ -9,6 +9,7 @@ import { NgClass } from '@angular/common';
   standalone: true,
   templateUrl: './inputFileDropZone.html',
   styleUrl: './inputFileDropZone.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass, TraductionPipe, MatIconModule, DarkModeDirective]
 })
 export class InputFileDropZone

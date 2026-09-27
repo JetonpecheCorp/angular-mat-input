@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, Optional, output, Self, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, Optional, output, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton } from "@angular/material/button";
@@ -7,6 +7,7 @@ import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIcon
   selector: 'jp-input-file-btn',
   standalone: true,
   templateUrl: './inputFile.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatIconModule, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton]
 })
 export class InputFile implements ControlValueAccessor

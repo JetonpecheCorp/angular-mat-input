@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, inject, input, output } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonAppearance, MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -11,6 +11,7 @@ import { NgClass } from '@angular/common';
   standalone: true,
   templateUrl: './buttonLoader.html',
   styleUrl: './buttonLoader.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass, MatTooltipModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule]
 })
 export class ButtonLoader

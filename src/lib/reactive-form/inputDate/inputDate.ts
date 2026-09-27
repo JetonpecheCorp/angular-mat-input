@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, OnInit, Self, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, OnInit, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,7 +13,7 @@ import { TraductionPipe } from '../../traductionPipe';
   selector: 'jp-input-date',
   standalone: true,
   templateUrl: './inputDate.html',
-  //styleUrl: './input.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNativeDateAdapter()],
   imports: [TraductionPipe, MatDatepickerModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })

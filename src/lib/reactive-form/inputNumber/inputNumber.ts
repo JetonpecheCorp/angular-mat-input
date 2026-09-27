@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, OnInit, Self, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, OnInit, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +11,7 @@ import { TraductionPipe } from '../../traductionPipe';
   standalone: true,
   templateUrl: './inputNumber.html',
   styleUrl: './inputNumber.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TraductionPipe, NgClass, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
 export class InputNumber implements ControlValueAccessor, OnInit

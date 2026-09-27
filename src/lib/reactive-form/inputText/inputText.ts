@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, OnInit, output, Self, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, OnInit, output, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'jp-input-text',
   standalone: true,
   templateUrl: './inputText.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TraductionPipe, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
 export class InputText implements ControlValueAccessor, OnInit

@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, OnInit, output, signal, Self, model, OnChanges, SimpleChanges } from '@angular/core';
+import { booleanAttribute, Component, input, OnInit, output, signal, Self, model, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +11,7 @@ import { MatOptionModule } from '@angular/material/core';
   selector: 'jp-autocomplete',
   standalone: true,
   templateUrl: './inputAutocomplete.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatOptionModule, TraductionPipe, MatAutocompleteModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule]
 })
 export class InputAutocomplete implements ControlValueAccessor, OnInit, OnChanges
