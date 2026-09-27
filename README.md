@@ -218,8 +218,20 @@ let form = new FormGroup({
 ## exemple
 ```html
 <jp-textarea label="Info en plus" formControlName="info" />
+<jp-signal-textarea label="Info en plus" [field]="profileForm.info" />
 ```
 ```js
+let profile = signal({
+   info: ''
+});
+
+let profileForm = form(this.profile, (path) => {
+   required(path.info);
+
+   // Le message remplace celui par defaut
+   maxLength(path.info, 3, { message: 'Custom message' })
+});
+
 let form = new FormGroup({
    info: new FormControl(
       "",
