@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { DOCUMENT, inject, Injectable, signal } from "@angular/core";
-import { JP_MAT_INPUT_LANG, SupportedLang } from "angular-mat-input";
 import { Observable, tap } from "rxjs";
+import { JP_MAT_INPUT_LANG, SupportedLang } from "./provide";
 
 @Injectable({
     providedIn: "root"
