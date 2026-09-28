@@ -12,7 +12,7 @@ export * from "./lib/reactive-form/inputDate/maxDateValidator"
 export * from "./lib/reactive-form/inputDate/EDay"
 export * from "./lib/reactive-form/inputDate/EMonth"
 export * from "./lib/reactive-form/inputFile/inputFile"
-export * from "./lib/reactive-form/inputFileDropZone/inputFileDropZone"
+export * from "./lib/inputFileDropZone/inputFileDropZone"
 export * from "./lib/reactive-form/inputAutocomplete/inputAutocomplete"
 export * from "./lib/reactive-form/inputAutocomplete/AutocompleteDataSource"
 

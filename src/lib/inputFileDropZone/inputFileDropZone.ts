@@ -1,7 +1,7 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { DarkModeDirective } from './darkModeDirective';
-import { TraductionPipe } from '../../traductionPipe';
+import { TraductionPipe } from '../traductionPipe';
 import { NgClass } from '@angular/common';
 
 @Component({
