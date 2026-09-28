@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, output, signal, model, ChangeDetectionStrategy, effect, untracked, computed } from '@angular/core';
+import { booleanAttribute, Component, input, output, signal, model, ChangeDetectionStrategy, effect, untracked, computed, ElementRef, viewChild } from '@angular/core';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -6,13 +6,15 @@ import { AutocompleteDataSource } from '../../AutocompleteDataSource';
 import { TraductionPipe } from '../../traductionPipe';
 import { MatOptionModule } from '@angular/material/core';
 import { FieldTree, ValidationError } from '@angular/forms/signals';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'jp-signal-autocomplete',
     standalone: true,
     templateUrl: './inputAutocompleteSignal.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [MatOptionModule, TraductionPipe, MatAutocompleteModule, MatFormFieldModule, MatInputModule]
+    imports: [MatIconModule, MatOptionModule, MatChipsModule, TraductionPipe, MatAutocompleteModule, MatFormFieldModule, MatInputModule]
 })
 export class InputAutocompleteSignal
 {
@@ -31,15 +33,15 @@ export class InputAutocompleteSignal
     placeholder = input<string>();
     dataSource = model.required<AutocompleteDataSource[]>();
 
-    matAutocompletePosition = input<"auto" | "above" | "below">("auto");
-
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
     autoDesactiveFirstOption = input(false, { transform: booleanAttribute });
     requireSelection = input(false, { transform: booleanAttribute });
     disabledFilterComplete = input(false, { transform: booleanAttribute });
+    multiple = input<boolean>(false, { transform: booleanAttribute });
 
     protected dataSourceClone = signal<AutocompleteDataSource[]>([]);
+    private champSaisie = viewChild<ElementRef<HTMLInputElement>>('champSaisie');
 
     constructor()
     {
@@ -53,11 +55,39 @@ export class InputAutocompleteSignal
         });
     }
 
-    protected valeurAffichee = computed(() =>
+    protected listeChipAffiche = computed(() => 
     {
+        if (!this.multiple())
+            return [];
+
+        const valeurs = this.field()().value() as any[];
+        if (!Array.isArray(valeurs))
+            return [];
+
+        return valeurs.map(val =>
+        {
+            const trouve = this.dataSource().find(x => x.value == val);
+            return trouve ? trouve : { value: val, display: String(val) };
+        });
+    });
+
+    protected valeursSelectionnees = computed<any[]>(() => 
+    {
+        if (!this.multiple()) 
+            return [];
+        
         const val = this.field()().value();
-        const option = this.dataSource().find(x => x.value == val);
-        return option ? option.display : (val ?? '');
+        return Array.isArray(val) ? val : [];
+    });
+
+    protected valeurAffichee = computed(() => 
+    {
+        if (this.multiple())
+            return "";
+
+        const val = this.field()().value();
+        const option = this.dataSource().find(x => x.value === val);
+        return option ? option.display : (val ?? "");
     });
 
     protected estDesactive = computed<boolean>(() =>
@@ -80,11 +110,13 @@ export class InputAutocompleteSignal
         return map;
     });
 
-    protected AffichageMatOption(option: AutocompleteDataSource): string
+    protected AffichageMatOption = (option: AutocompleteDataSource | null): string => 
     {
-        return option && option.display ? option.display : "";
-    }
+        if (this.multiple())
+            return "";
 
+        return option && option.display ? option.display : "";
+    };
     protected AutoCompleteOuvert(): void
     {
         const val = this.field()().value();
@@ -97,19 +129,23 @@ export class InputAutocompleteSignal
 
     protected Filtrer(event: Event): void
     {
-        const valeur = (event.target as HTMLInputElement).value;
+        const inputElement = event.target as HTMLInputElement;
+        const valeur = inputElement.value;
         const fieldState = this.field()() as any;
 
-        // Mise à jour de l'arbre Signal Forms
-        if (this.requireSelection())
+        // En mode multiple, taper au clavier ne modifie que la recherche, pas la valeur du formulaire
+        if (!this.multiple())
         {
-            if (typeof fieldState?.value?.set == 'function')
-                fieldState.value.set(null);
-        } 
-        else
-        {
-            if (typeof fieldState?.value?.set == 'function')
-                fieldState.value.set(valeur);
+            if (this.requireSelection())
+            {
+                if (typeof fieldState?.value?.set == 'function')
+                    fieldState.value.set(null);
+            }
+            else
+            {
+                if (typeof fieldState?.value?.set == 'function')
+                    fieldState.value.set(valeur);
+            }
         }
 
         this.autocompleteChange.emit(valeur);
@@ -122,13 +158,41 @@ export class InputAutocompleteSignal
         }
     }
 
-    protected OptionChoisi(event: MatAutocompleteSelectedEvent): void
+    protected OptionChoisi(event: MatAutocompleteSelectedEvent): void 
     {
         const selectedOption: AutocompleteDataSource = event.option.value;
         const fieldState = this.field()() as any;
 
-        if (typeof fieldState?.value?.set == 'function')
-            fieldState.value.set(selectedOption.value);
+        if (typeof fieldState?.value?.set === 'function')
+        {
+            if (this.multiple())
+            {
+                const currentValues = (fieldState.value() || []) as any[];
+                if (!currentValues.includes(selectedOption.value))
+                    fieldState.value.set([...currentValues, selectedOption.value]);
+
+                // On vide le champ de recherche via le viewChild
+                const inputElement = this.champSaisie()?.nativeElement;
+                if (inputElement)
+                    inputElement.value = '';
+
+                if (!this.disabledFilterComplete())
+                    this.dataSourceClone.set(this.dataSource());
+            } 
+            else
+                fieldState.value.set(selectedOption.value);
+        }
+    }
+
+    protected RetirerChip(valeurASupprimer: any): void 
+    {
+        const fieldState = this.field()() as any;
+
+        if (typeof fieldState?.value?.set == 'function') 
+        {
+            const currentValues = (fieldState.value() || []) as any[];
+            fieldState.value.set(currentValues.filter(val => val !== valeurASupprimer));
+        }
     }
 
     protected Blur(): void
