@@ -285,8 +285,21 @@ let form = new FormGroup({
 ```html
 <jp-input-file-btn matFab extended label="Info en plus" formControlName="fichier" />
 <jp-input-file-btn multiple label="Info en plus" (fileChange)="Info($event)" />
+
+<jp-signal-input-file-btn [field]="profileForm.info" />
 ```
 ```js
+let profile = signal({
+   info: null // (FileList | File)
+});
+
+let profileForm = form(this.profile, (path) => {
+   required(path.info);
+
+   // Le message remplace celui par defaut
+   maxLength(path.info, 3, { message: 'Custom message' })
+});
+
 let form = new FormGroup({
    // Add multiple attribut => FileList
    fichier: new FormControl<File>(null)
@@ -342,6 +355,11 @@ onChange(_liste: FileList): void
                  label="Chiffre" 
                  [dataSource]="liste()" 
                  formControlName="info" />
+
+<jp-signal-autocomplete (autocompleteChange)="onChange($event)" 
+                 label="Chiffre" 
+                 [dataSource]="liste()" 
+                 [field]="profileForm.info" />
 ```
 ```ts
 liste = signal<AutocompleteDataSource[]>([{
@@ -352,6 +370,17 @@ liste = signal<AutocompleteDataSource[]>([{
    display: "Deux",
    value: 2
 }]);
+
+let profile = signal({
+   info: ''
+});
+
+let profileForm = form(this.profile, (path) => {
+   required(path.info);
+
+   // Le message remplace celui par defaut
+   maxLength(path.info, 3, { message: 'Custom message' })
+});
 
 let form = new FormGroup({
    info: new FormControl<number>(

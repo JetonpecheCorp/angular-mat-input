@@ -3,7 +3,7 @@ import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule, Vali
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { AutocompleteDataSource } from './AutocompleteDataSource';
+import { AutocompleteDataSource } from '../../AutocompleteDataSource';
 import { TraductionPipe } from '../../traductionPipe';
 import { MatOptionModule } from '@angular/material/core';
 
