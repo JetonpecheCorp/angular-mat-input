@@ -5,8 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
-import { EDay } from './EDay';
-import { EMonth } from './EMonth';
+import { EDay } from '../../EDay';
+import { EMonth } from '../../EMonth';
 import { TraductionPipe } from '../../traductionPipe';
 
 @Component({

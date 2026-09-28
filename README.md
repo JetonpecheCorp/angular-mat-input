@@ -121,12 +121,21 @@ let form = new FormGroup({
 # Input password
 
 ## passwordValidator
+### Reactive form
 Donne la règle du mot de passe:
 - 1 minuscule
 - 1 majuscule
 - 1 chiffre
 - 1 caractère spécial
 - 8 caractères minimum au total
+
+### Signal form
+Donne la règle du mot de passe:
+- 1 minuscule
+- 1 majuscule
+- 1 chiffre
+- 1 caractère spécial
+- X caractères minimum au total (defaut 8)
 
 ## Attributs
 - `formControlName`: Obligatoire
@@ -140,8 +149,17 @@ Donne la règle du mot de passe:
 ## exemple
 ```html
 <jp-input-password label="Mot de passe" formControlName="mdp" />
+<jp-signal-input-password label="Mot de passe" [field]="form.mdp" />
 ```
 ```js
+let profile = signal<any>({
+   mdp: ''
+});
+
+let profileForm = form(this.profile, (path) => {
+   password(path.mdp, { minLength: 8 });
+});
+
 let form = new FormGroup({
    mdp: new FormControl(
       "",
@@ -154,17 +172,15 @@ let form = new FormGroup({
 
 ## Validators
 
+### Reactive form
 - `minDateValidator`: Définir la date minimum possible dans le picker
 - `maxDateValidator`: Définir la date maximum possible dans le picker
 
-```js
-let date = new FormControl(
-   null, [
-      minDateValidator("2025-01-01"), // possible avec type Date
-      maxDateValidator("2025-01-20"), // possible avec type Date
-   ]
-);
-```
+### Signal form
+- `minDate`: Définir la date minimum possible dans le picker
+- `maxDate`: Définir la date maximum possible dans le picker  
+
+**NOTE :** Les valeurs peuvent être dynamiques via une lambda
 
 ## EDay
 Enum des jours de la semaine
@@ -190,8 +206,18 @@ Enum des mois de l'année (index 0 à 11)
 ## exemple
 ```html
 <jp-input-date label="Date naissance" formControlName="date" />
+<jp-signal-input-date label="Date naissance" [field]="profileForm.date" />
 ```
 ```js
+let profile = signal<any>({
+   date: ''
+});
+
+let profileForm = form(this.profile, (path) => {
+   minDate(path.date, "2025-01-20"), // possible avec type Date et lambda
+   maxDate(path.date, () => this.MaFonction()) // possible avec type Date et string ici mode dynamique
+});
+
 let form = new FormGroup({
    date: new FormControl(
       null, [

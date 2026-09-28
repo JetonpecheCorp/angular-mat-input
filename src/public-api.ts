@@ -9,8 +9,8 @@ export * from "./lib/reactive-form/inputTextarea/inputTextarea"
 export * from "./lib/reactive-form/inputDate/inputDate"
 export * from "./lib/reactive-form/inputDate/minDateValidator"
 export * from "./lib/reactive-form/inputDate/maxDateValidator"
-export * from "./lib/reactive-form/inputDate/EDay"
-export * from "./lib/reactive-form/inputDate/EMonth"
+export * from "./lib/EDay"
+export * from "./lib/EMonth"
 export * from "./lib/reactive-form/inputFile/inputFile"
 export * from "./lib/inputFileDropZone/inputFileDropZone"
 export * from "./lib/reactive-form/inputAutocomplete/inputAutocomplete"
@@ -22,6 +22,9 @@ export * from "./lib/signal-form/inputPasswordSignal/inputPasswordSignal";
 export * from "./lib/signal-form/inputPasswordSignal/passwordValidatorSignal";
 export * from "./lib/signal-form/inputTextareaSignal/inputTextareaSignal";
 export * from "./lib/signal-form/inputFileSignal/inputFileSignal"
+export * from "./lib/signal-form/inputDateSignal/inputDateSignal"
+export * from "./lib/signal-form/inputDateSignal/minDateValidatorSignal"
+export * from "./lib/signal-form/inputDateSignal/maxDateValidatorSignal"
 
 export * from "./lib/buttonLoader/buttonLoader"
 export * from "./lib/provide"

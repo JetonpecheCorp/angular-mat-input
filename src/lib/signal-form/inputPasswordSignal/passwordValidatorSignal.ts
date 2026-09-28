@@ -2,7 +2,6 @@ import { SchemaPath, validate } from '@angular/forms/signals';
 
 export interface PasswordValidatorOptions
 {
-    message?: string;
     minLength?: number;
 }
 
@@ -37,7 +36,6 @@ export function password(
 
         return {
             kind: 'password',
-            message: options?.message,
             min: options?.minLength ?? 8
         };
     });

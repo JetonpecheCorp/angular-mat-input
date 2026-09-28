@@ -6,23 +6,28 @@
         <mat-label>{{ label() }}</mat-label>
     }
 
-    <input  matInput 
+   <input  matInput 
             [formControl]="control"
             [matDatepicker]="picker" 
             [matDatepickerFilter]="dateFilter"
             [readonly]="disabledPartial()"
+            (keydown)="disabledPartial() ? $event.preventDefault() : null"
+            (click)="disabledPartial() ? picker.open() : null"
+            [style.color]="disabledPartial() ? 'rgba(0,0,0,0.38)' : ''"
             [min]="min()" 
             [max]="max()">
 
-        <mat-datepicker-toggle matIconSuffix [for]="picker">
+    <mat-datepicker-toggle matIconSuffix [for]="picker">
+        @if(iconPicker())
+        {
+            <mat-icon matDatepickerToggleIcon>{{ iconPicker() }}</mat-icon>
+        }
+    </mat-datepicker-toggle>
 
-            @if(iconPicker())
-            {
-                <mat-icon matDatepickerToggleIcon>{{ iconPicker() }}</mat-icon>
-            }
-        </mat-datepicker-toggle>
-
-    <mat-datepicker [disabled]="control.disabled ? true : !disabledPartial()" [touchUi]="touchUi()" #picker></mat-datepicker>
+    <mat-datepicker [disabled]="control.disabled" 
+                    [touchUi]="touchUi()" 
+                    #picker>
+    </mat-datepicker>
 
     @if (control.hasError('required')) 
     {

@@ -1,0 +1,44 @@
+<mat-form-field [floatLabel]="floatLabel()" 
+                [hideRequiredMarker]="hiddenRequiredMarker()">
+
+    @if (label()) 
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <input matInput 
+           [formField]="field()"
+           [matDatepicker]="picker" 
+           [matDatepickerFilter]="dateFilter"
+           [readonly]="disabledPartial()"
+           (keydown)="disabledPartial() ? $event.preventDefault() : null"
+           (click)="disabledPartial() ? picker.open() : null"
+           [style.color]="disabledPartial() ? 'rgba(0,0,0,0.38)' : ''"
+           [min]="min()" 
+           [max]="max()">
+
+    <mat-datepicker-toggle matIconSuffix [for]="picker">
+        @if (iconPicker()) 
+        {
+            <mat-icon matDatepickerToggleIcon>{{ iconPicker() }}</mat-icon>
+        }
+    </mat-datepicker-toggle>
+
+    <mat-datepicker #picker 
+                    [disabled]="estDesactive()"
+                    [touchUi]="touchUi()">
+    </mat-datepicker>
+
+    @if (listeErreur()['required']) 
+    {
+        <mat-error>{{ listeErreur()['required'].message ?? ("required" | traduction) }}</mat-error>
+    }
+    @else if (listeErreur()['minDate']) 
+    {
+        <mat-error>{{ "minDate" | traduction:listeErreur()['minDate'].message }}</mat-error>
+    }
+    @else if (listeErreur()['maxDate']) 
+    {
+        <mat-error>{{ "maxDate" | traduction:listeErreur()['maxDate'].message }}</mat-error>
+    }
+</mat-form-field>
