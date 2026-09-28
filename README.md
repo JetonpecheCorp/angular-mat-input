@@ -41,7 +41,7 @@ export const appConfig: ApplicationConfig = {
 # Input texte
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`, `field`: Obligatoire
 - `label`: Nom de l'input
 - `placeholder`: Placeholder de l'input
 - `type`: En option, defaut type text, valeurs possibles  
@@ -82,7 +82,7 @@ let form = new FormGroup({
 # Input number
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`, `field`: Obligatoire
 - `label`: Nom de l'input
 - `placeholder`: Placeholder de l'input
 - `step`: Pas de l'incrémentation et décrémentation
@@ -138,7 +138,7 @@ Donne la règle du mot de passe:
 - X caractères minimum au total (defaut 8)
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`, `field`: Obligatoire
 - `label`: Nom de l'input
 - `placeholder`: Placeholder de l'input
 - `floatLabel`: Bloquer le label en haut de l'input
@@ -189,7 +189,7 @@ Enum des jours de la semaine
 Enum des mois de l'année (index 0 à 11)
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`, `field`: Obligatoire
 - `label`: Nom de l'input
 - `iconPicker`: Changer l'icone du picker (mat icon)
 - `floatLabel`: Bloquer le label en haut de l'input
@@ -232,7 +232,7 @@ let form = new FormGroup({
 # Input textarea
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`, `field`: Obligatoire
 - `label`: Nom de l'input
 - `placeholder`: Placeholder de l'input
 - `rows`: Nombre de ligne
@@ -269,7 +269,7 @@ let form = new FormGroup({
 # Input file button
 
 ## Attributs
-- `formControlName`: option
+- `formControlName`, `field`: option
 - `label`: Nom de l'input
 - `icon`: Icon du bouton (mat icon)
 - `accept`: Liste des extensions de fichier acceptés
@@ -335,7 +335,7 @@ onChange(_liste: FileList): void
 # Input autocomplete
 
 ## Attributs
-- `formControlName`: Obligatoire
+- `formControlName`, `field`: Obligatoire
 - `dataSource`: Obligatoire
 - `label`: Nom de l'input
 - `placeholder`: Placeholder de l'input
