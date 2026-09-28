@@ -10,6 +10,7 @@ Compatible `signal form` et `reactive form`
 
 - 1.1.11 => angular 20.3.0
 - 1.2.x => angular 21
+- 2.0 => à partir de angular 22
 
 # Configuration
 
