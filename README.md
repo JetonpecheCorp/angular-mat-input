@@ -1,15 +1,17 @@
 # Angular mat input
 
-Rend moins pénible de faire des inputs de angular matérial.   
-Les erreurs sont implémentées et traduite dans 13 langues (Anglais, français, espagnol, italien, portugais, allemand, arabe, japonais, néerlandais, polonais, russe, suédois, mandarin simplifié) selon la langue du navigateur ou via un paramètre dans le providers  
-**Langue non trouvée, par défaut anglais**
+*Pourquoi utiliser ce package ?*
+Ces composants ont été conçu pour fluidifier l'intégration des champs Angular Material en supprimant la gestion fastidieuse des états et des erreurs.
+
+**L'internationalisation (i18n) en natif :**
+Plus besoin de gérer vos propres fichiers de traduction pour les erreurs basiques. Le package supporte 13 langues (FR, EN, ES, IT, PT, DE, AR, JA, NL, PL, RU, SV, ZH). La sélection se fait de manière transparente selon les préférences du navigateur, avec la possibilité d'écraser ce comportement via les `providers`. (Langue de repli par défaut : Anglais).
 
 # Information
 Compatible `signal form` et `reactive form`
 **NOTE:** `Signal form` possibilité de mettre un message custom en remplacement du par défaut
 
 - 1.1.11 => angular 20.3.0
-- 1.2.x => angular 21
+- 1.2.10 => angular 21
 - 2.0 => à partir de angular 22
 
 # Configuration
