@@ -27,6 +27,8 @@
     "i18n",
     "multilingual",
     "inputs",
+    "input",
+    "material-input",
     "autocomplete",
     "datepicker",
     "chips",
