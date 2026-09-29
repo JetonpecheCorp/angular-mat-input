@@ -60,7 +60,6 @@
         }
     </mat-autocomplete>
 
-    <!-- La vérification d'erreur pointe désormais sur le contrôle parent pour fonctionner en multiple -->
     @if(control?.hasError('required')) 
     {
         <mat-error>{{ (requireSelection() ? "requiredAutoCompleteSelected" : "required") | traduction }}</mat-error>
