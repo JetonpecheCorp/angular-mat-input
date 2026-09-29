@@ -38,7 +38,7 @@ export class InputAutocompleteSignal
     autoDesactiveFirstOption = input(false, { transform: booleanAttribute });
     requireSelection = input(false, { transform: booleanAttribute });
     disabledFilterComplete = input(false, { transform: booleanAttribute });
-    multiple = input<boolean>(false, { transform: booleanAttribute });
+    multiple = input(false, { transform: booleanAttribute });
 
     protected dataSourceClone = signal<AutocompleteDataSource[]>([]);
     private champSaisie = viewChild<ElementRef<HTMLInputElement>>('champSaisie');

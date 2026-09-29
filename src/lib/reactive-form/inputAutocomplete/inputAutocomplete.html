@@ -6,32 +6,62 @@
         <mat-label>{{ label() }}</mat-label>
     }
 
-    <input  matInput 
-            type="text" 
-            [aria-label]="label()"
-            [matAutocomplete]="auto"
-            [formControl]="formControlInterne"
-            [attr.placeholder]="placeholder()"
-            [matAutocompletePosition]="matAutocompletePosition()"
-            (input)="Filtrer($event)"
-            (blur)="Blur()"> 
-    <mat-autocomplete (optionSelected)="OptionChoisi($event)" 
+    @if (multiple()) 
+    {
+        <mat-chip-grid #chipGrid [disabled]="formControlInterne.disabled" [required]="EstRequis()">
+            @for (item of listeChipAffiche(); track item.value) 
+            {
+                <mat-chip-row (removed)="RetirerChip(item.value)" 
+                              [disabled]="formControlInterne.disabled">
+                    {{ item.display }}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+            }
+            
+            <input #champSaisie
+                   [matChipInputFor]="chipGrid"
+                   [matAutocomplete]="auto"
+                   [formControl]="formControlInterne"
+                   [attr.placeholder]="placeholder()"
+                   (input)="Filtrer($event)"
+                   (blur)="Blur()">
+        </mat-chip-grid>
+    } 
+    @else {
+        <input #champSaisie
+               matInput 
+               type="text" 
+               [aria-label]="label() ?? ''"
+               [matAutocomplete]="auto"
+               [formControl]="formControlInterne"
+               [attr.placeholder]="placeholder()"
+               (input)="Filtrer($event)"
+               (blur)="Blur()"> 
+    }
+
+    <mat-autocomplete #auto="matAutocomplete"
                       [autoActiveFirstOption]="!autoDesactiveFirstOption()"
                       [requireSelection]="requireSelection()"
+                      [displayWith]="AffichageMatOption"
                       (opened)="AutoCompleteOuvert()"
                       (closed)="closed.emit()"
-                      #auto="matAutocomplete"
-                      [displayWith]="AffichageMatOption">
+                      (optionSelected)="OptionChoisi($event)">
 
         @for (element of dataSourceClone(); track element.value) 
         {
-            <mat-option [value]="element"> 
-                {{ element.display }}
-            </mat-option>
+            @if (!multiple() || !listeValeurSelectionner().includes(element.value)) 
+            {
+                <mat-option [value]="element"> 
+                    {{ element.display }}
+                </mat-option>
+            }
         }
     </mat-autocomplete>
 
-    @if(formControlInterne.hasError('required'))
+    <!-- La vérification d'erreur pointe désormais sur le contrôle parent pour fonctionner en multiple -->
+    @if(control?.hasError('required')) 
     {
         <mat-error>{{ (requireSelection() ? "requiredAutoCompleteSelected" : "required") | traduction }}</mat-error>
     }
