@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class InputAutocompleteSignal
 {
-    readonly field = input.required<FieldTree<any>>();
+    readonly field = input.required<FieldTree<unknown>>();
 
     /** Event autocomplete value changed */
     autocompleteChange = output<string>();
