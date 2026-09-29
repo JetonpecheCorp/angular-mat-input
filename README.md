@@ -336,7 +336,7 @@ When `loading` is `true`, `disabledInteractive` is automatically turned on to lo
 ```html
 <jp-button-loader label="Save Changes" 
                            icon="check" 
-                           matButton 
+                           matButton="filled"
                            [loading]="isSaving()" 
                            (clicked)="saveProfile()" />
 ```
