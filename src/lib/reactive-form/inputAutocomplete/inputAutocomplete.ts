@@ -8,7 +8,6 @@ import { TraductionPipe } from '../../traductionPipe';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { F } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'jp-autocomplete',
