@@ -2,7 +2,7 @@
   "name": "@jetonpeche/angular-mat-input",
   "description": "Streamlined Angular Material inputs and buttons with built-in multilingual error handling for Signal Forms and Reactive Forms.",  
   "author": "jetonpeche",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "peerDependencies": {
     "@angular/common": ">=22.0.0",
     "@angular/core": ">=22.0.0",
