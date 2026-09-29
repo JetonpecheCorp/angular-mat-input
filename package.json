@@ -1,6 +1,6 @@
 {
   "name": "@jetonpeche/angular-mat-input",
-  "description": "Inputs et boutons angular material avec les erreurs intégrées traduites pour une utilisation plus simple",
+  "description": "Streamlined Angular Material inputs and buttons with built-in multilingual error handling for Signal Forms and Reactive Forms.",  
   "author": "jetonpeche",
   "version": "2.0.0",
   "peerDependencies": {
@@ -17,5 +17,19 @@
   },
   "sideEffects": false,
   "license": "ISC",
-  "keywords": ["angular", "input", "button", "material", "angular material"]
+  "keywords": [
+    "angular",
+    "angular-material",
+    "material-design",
+    "signal-forms",
+    "reactive-forms",
+    "form-validation",
+    "i18n",
+    "multilingual",
+    "inputs",
+    "autocomplete",
+    "datepicker",
+    "chips",
+    "button-loader"
+  ]
 }
