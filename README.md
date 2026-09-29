@@ -344,13 +344,13 @@ onChange(_liste: FileList): void
 - `placeholder`: Placeholder de l'input
 - `floatLabel`: Bloquer le label en haut de l'input
 - `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-- `matAutocompletePosition`: Position de l'autocomplete (défaut auto)
 - `requireSelection`: La valeur choisi doit être dans les choix proposés
 - `disabledFilterComplete`: Désactiver le filtre des choix de l'autocomplete
 - `autoDesactiveFirstOption`: Désactiver l'auto selection du premier choix
 - `opened`: Event ouverture autocomplete
 - `closed`: Event déselection autocomplete
 - `autocompleteChange`: Event change de l'input
+- `multiple`: Selectionner plusieurs valeurs
 
 ## exemple
 ```html
