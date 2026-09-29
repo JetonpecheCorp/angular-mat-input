@@ -230,7 +230,7 @@ Handles single-item autocomplete selection as well as multiple selection using M
 |:--- | :--- | :--- |
 | `formControlName` / `[field]`| `string` / `FieldTree` | **Required**. Form binding (Reactive Forms vs. Signal Forms). |
 | `label` | `string` | Field label text. |
-| `dataSource` | `Model<AutocompleteDataSource[]>` | **Required**. Array of `{ display: string, value: any }` items. |
+| `dataSource` | `AutocompleteDataSource[]` | **Required**. Array of `{ display: string, value: any }` items. |
 | `multiple` | `boolean` | Enables multi-select mode rendered as Material Chips. |
 | `requireSelection` | `boolean` | Forces the value to match an item in `dataSource`. If `false`, permits free text entry.
 | `disabledFilterComplete` | `boolean` | Disables internal client-side autocomplete list filtering. |
@@ -244,15 +244,15 @@ Handles single-item autocomplete selection as well as multiple selection using M
 ```html
 <!-- Single Selection -->
 <jp-autocomplete label="Favorite item" 
-                           [dataSource]="list()" 
-                           formControlName="item" />
+                 [dataSource]="list()" 
+                 formControlName="item" />
 
 <!-- Multiple Selection (Chips) with Free Text Input -->
 <jp-signal-autocomplete label="Tags" 
-                                    multiple 
-                                    requireSelection
-                                    [dataSource]="tagList()" 
-                                    [field]="profileForm.tags" />
+                        multiple 
+                        requireSelection
+                        [dataSource]="tagList()" 
+                        [field]="profileForm.tags" />
 ```
 ```ts
 const list = signal<AutocompleteDataSource[]>([
@@ -299,10 +299,10 @@ const formGroup = new FormGroup({
 A file picker integrated into an Angular Material button style:
 ```html
 <jp-input-file-btn matFab 
-                           extended 
-                           label="Upload CV" 
-                           accept=".pdf,.docx" 
-                           (fileChange)="onFileSelected($event)" />
+                   extended 
+                   label="Upload CV" 
+                   accept=".pdf,.docx" 
+                   (fileChange)="onFileSelected($event)" />
 
 <jp-signal-input-file-btn [field]="profileForm.file" />
 ```
@@ -310,8 +310,8 @@ A file picker integrated into an Angular Material button style:
 #### Drop zone file input
 ```html
 <jp-input-file-drop-zone accept="image/*" 
-                                       notMultiple
-                                       (selectedFiles)="onFilesDropped($event)" />
+                         notMultiple
+                         (selectedFiles)="onFilesDropped($event)" />
 ```
 
 ### Button loader
@@ -335,10 +335,10 @@ When `loading` is `true`, `disabledInteractive` is automatically turned on to lo
 #### Example
 ```html
 <jp-button-loader label="Save Changes" 
-                           icon="check" 
-                           matButton="filled"
-                           [loading]="isSaving()" 
-                           (clicked)="saveProfile()" />
+                 icon="check" 
+                 matButton="filled"
+                 [loading]="isSaving()" 
+                 (clicked)="saveProfile()" />
 ```
 
 ## License
