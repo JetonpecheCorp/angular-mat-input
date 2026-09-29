@@ -7,7 +7,7 @@ import { AutocompleteDataSource } from '../../AutocompleteDataSource';
 import { TraductionPipe } from '../../traductionPipe';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 
 @Component({
     selector: 'jp-autocomplete',
@@ -110,6 +110,38 @@ export class InputAutocomplete implements ControlValueAccessor, OnInit, OnChange
     protected EstRequis(): boolean
     {
         return this.control?.hasValidator(Validators.required) ?? false;
+    }
+
+    protected AjouterChipLibre(event: MatChipInputEvent): void 
+    {
+        if (this.requireSelection()) 
+            return;
+
+        const valeur = (event.value || '').trim();
+
+        if (valeur) 
+        {
+            const currentValues = Array.isArray(this.parentValue()) ? this.parentValue() : [];
+
+            // On vérifie si la valeur existe déjà dans la dataSource pour récupérer son id réel,
+            // sinon on prend la chaîne saisie telle quelle
+            const optionExistante = this.dataSource().find(x => x.display.toLowerCase() === valeur.toLowerCase());
+            const valeurFinale = optionExistante ? optionExistante.value : valeur;
+
+            if (!currentValues.includes(valeurFinale)) 
+            {
+                const newValues = [...currentValues, valeurFinale];
+                this.parentValue.set(newValues);
+                this.onChange(newValues);
+            }
+
+            // Réinitialise l'input HTML natif
+            event.chipInput!.clear();
+            this.formControlInterne.setValue('', { emitEvent: false });
+
+            if (!this.disabledFilterComplete()) 
+                this.dataSourceClone.set(this.dataSource());
+        }
     }
 
     protected AffichageMatOption = (_option: AutocompleteDataSource): string =>

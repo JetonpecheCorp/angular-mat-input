@@ -6,7 +6,7 @@ import { AutocompleteDataSource } from '../../AutocompleteDataSource';
 import { TraductionPipe } from '../../traductionPipe';
 import { MatOptionModule } from '@angular/material/core';
 import { FieldTree, ValidationError } from '@angular/forms/signals';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -73,9 +73,9 @@ export class InputAutocompleteSignal
 
     protected valeursSelectionnees = computed<any[]>(() => 
     {
-        if (!this.multiple()) 
+        if (!this.multiple())
             return [];
-        
+
         const val = this.field()().value();
         return Array.isArray(val) ? val : [];
     });
@@ -90,11 +90,7 @@ export class InputAutocompleteSignal
         return option ? option.display : (val ?? "");
     });
 
-    protected estDesactive = computed<boolean>(() =>
-    {
-        const etat = this.field()() as any;
-        return etat.disabled();
-    });
+    protected estDesactive = computed<boolean>(() => this.field()().disabled());
 
     /** Liste des erreurs indexées par kind */
     protected listeErreur = computed(() =>
@@ -110,6 +106,11 @@ export class InputAutocompleteSignal
         return map;
     });
 
+    protected EstRequis(): boolean
+    {
+        return this.field()().required();
+    }
+
     protected AffichageMatOption = (option: AutocompleteDataSource | null): string => 
     {
         if (this.multiple())
@@ -117,6 +118,7 @@ export class InputAutocompleteSignal
 
         return option && option.display ? option.display : "";
     };
+
     protected AutoCompleteOuvert(): void
     {
         const val = this.field()().value();
@@ -178,9 +180,38 @@ export class InputAutocompleteSignal
 
                 if (!this.disabledFilterComplete())
                     this.dataSourceClone.set(this.dataSource());
-            } 
+            }
             else
                 fieldState.value.set(selectedOption.value);
+        }
+    }
+
+    protected AjouterChipLibre(event: MatChipInputEvent): void 
+    {
+        if (this.requireSelection())
+            return;
+
+        const valeur = (event.value || '').trim();
+
+        if (valeur)
+        {
+            const fieldState = this.field()() as any;
+
+            if (typeof fieldState?.value?.set === 'function') 
+            {
+                const valeurActuelle = (fieldState.value() || []) as any[];
+
+                const optionExistante = this.dataSource().find(x => x.display.toLowerCase() === valeur.toLowerCase());
+                const valeurFinale = optionExistante ? optionExistante.value : valeur;
+
+                if (!valeurActuelle.includes(valeurFinale))
+                    fieldState.value.set([...valeurActuelle, valeurFinale]);
+
+                event.chipInput!.clear();
+
+                if (!this.disabledFilterComplete())
+                    this.dataSourceClone.set(this.dataSource());
+            }
         }
     }
 
@@ -188,7 +219,7 @@ export class InputAutocompleteSignal
     {
         const fieldState = this.field()() as any;
 
-        if (typeof fieldState?.value?.set == 'function') 
+        if (typeof fieldState?.value?.set == 'function')
         {
             const currentValues = (fieldState.value() || []) as any[];
             fieldState.value.set(currentValues.filter(val => val !== valeurASupprimer));
@@ -196,10 +227,7 @@ export class InputAutocompleteSignal
     }
 
     protected Blur(): void
-    {
-        const fieldState = this.field()() as any;
-
-        if (typeof fieldState?.markAsTouched == 'function')
-            fieldState.markAsTouched();
+    {   
+        this.field()().markAsTouched();
     }
 }

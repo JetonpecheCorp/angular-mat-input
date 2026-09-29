@@ -25,6 +25,7 @@
                    [matAutocomplete]="auto"
                    [formControl]="formControlInterne"
                    [attr.placeholder]="placeholder()"
+                   (matChipInputTokenEnd)="AjouterChipLibre($event)"
                    (input)="Filtrer($event)"
                    (blur)="Blur()">
         </mat-chip-grid>

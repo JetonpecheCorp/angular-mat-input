@@ -9,7 +9,7 @@
     @if (multiple()) 
     {
         <!-- MODE MULTIPLE -->
-        <mat-chip-grid #chipGrid [disabled]="estDesactive()">
+        <mat-chip-grid #chipGrid [disabled]="estDesactive()" [required]="EstRequis()">
             @for (item of listeChipAffiche(); track item.value) 
             {
                 <mat-chip-row (removed)="RetirerChip(item.value)" 
@@ -26,6 +26,7 @@
                    [matAutocomplete]="auto"
                    [attr.placeholder]="placeholder()"
                    [disabled]="estDesactive()"
+                   (matChipInputTokenEnd)="AjouterChipLibre($event)"
                    (input)="Filtrer($event)"
                    (blur)="Blur()">
         </mat-chip-grid>
@@ -36,6 +37,7 @@
         <input #champSaisie
                matInput 
                type="text" 
+               [required]="EstRequis()"
                [aria-label]="label() ?? ''"
                [matAutocomplete]="auto"
                [value]="valeurAffichee()"
