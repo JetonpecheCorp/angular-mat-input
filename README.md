@@ -1,439 +1,345 @@
-# Angular mat input
+# Angular Material Simplified Inputs (`@jetonpeche/angular-mat-input`)
 
-*Pourquoi utiliser ce package ?*
-Ces composants ont été conçu pour fluidifier l'intégration des champs Angular Material en supprimant la gestion fastidieuse des états et des erreurs.
+Simplify form development with Angular Material. This package wraps native Angular Material form inputs to eliminate repetitive boilerplate and handle validation errors automatically.
 
-**L'internationalisation (i18n) en natif :**
-Plus besoin de gérer vos propres fichiers de traduction pour les erreurs basiques. Le package supporte 13 langues (FR, EN, ES, IT, PT, DE, AR, JA, NL, PL, RU, SV, ZH). La sélection se fait de manière transparente selon les préférences du navigateur, avec la possibilité d'écraser ce comportement via les `providers`. (Langue de repli par défaut : Anglais).
+## Key Features
 
-# Information
-Compatible `signal form` et `reactive form`
-**NOTE:** `Signal form` possibilité de mettre un message custom en remplacement du par défaut
+* **Dual Compatibility:** Fully supports both **Signal Forms** (`@angular/forms/signals`) and **Reactive Forms** (`ReactiveFormsModule`).
+* **Built-in Multilingual Errors (i18n):** Pre-translated validation messages in 13 languages (FR, EN, ES, IT, PT, DE, AR, JA, NL, PL, RU, SV, ZH).
+* **Auto-detect Language:** Automatically adapts to the user's browser language, with an optional override in application providers. *(Fallback language: English)*.
+* **Custom Error Messages:** Full support for custom error overrides on individual field rules.
 
-- 1.1.11 => angular 20.3.0
-- 1.2.10 => angular 21
-- 2.0 => à partir de angular 22
+## Compatibility Matrix
 
-# Configuration
+| Package Version | Angular Version |
+| :--- | :--- |
+| `1.1.11` | Angular 20.3.0 |
+| `1.2.10` | Angular 21 |
+| `2.0.0+` | Angular 22+ |
 
-```js
-// app.config.ts
+## Table of Contents
+
+- [Installation & Configuration](#installation--configuration)
+  - [1. Application Config](#1-application-config)
+  - [2. Assets Setup](#2-assets-setup)
+- [Components](#components)
+  - [1. Text Input](#input-text)
+  - [2. Number Input](#input-number)
+  - [3. Password Input](#input-password)
+  - [4. Date Picker Input](#date-picker-input)
+  - [5. Autocomplete](#autocomplete)
+  - [6. Textarea](#textarea)
+  - [7. File Inputs](#inputs-file)
+  - [8. Button Loader](#button-loader)
+- [License](#license)
+
+## Installation & Configuration
+
+### 1. Application Config
+
+Provide global options in `app.config.ts`:
+
+```ts
+import { ApplicationConfig } from '@angular/core';
 import { provideJpMatInput } from '@jetonpeche/angular-mat-input';
 
 export const appConfig: ApplicationConfig = {
-   providers: [
-      // ...
-      provideJpMatInput({ lang: "fr" }) // option
-   ]
+  providers: [
+    // Optional: force a specific language (defaults to browser language)
+    provideJpMatInput({ lang: 'en' })
+  ]
 };
 ```
+
+### 2. Assets setup
+Add translation files to the `assets` array in your `angular.json`
+
 ```json
-// angular.json
 {
-   // ...
-   "assets": [
-   // ajouter en plus
-   {
+  "assets": [
+   //... your other config
+    {
       "glob": "**/*",
       "input": "node_modules/@jetonpeche/angular-mat-input/src/assets",
       "output": "/assets/"
-   }]
+    }
+  ]
 }
 ```
 
-# Input texte
+## Components
 
-## Attributs
-- `formControlName`, `field`: Obligatoire
-- `label`: Nom de l'input
-- `placeholder`: Placeholder de l'input
-- `type`: En option, defaut type text, valeurs possibles  
-   - text, url, search, tel, email, color
-- `suffixIcon`: Définir et place l'icon à gauche (mat icon)
-- `prefixIcon`: Définir et place l'icon à droite (mat icon)
-- `isBtnIcon`: Transforme l'icone en bouton
-- `floatLabel`: Bloquer le label en haut de l'input
-- `showMaxLength`: Affiche la longeur max d'une chaine en bas de l'input
-- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-- `clicked`: Event click du bouton icon
+### Input text  
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `formControlName` / `[field]`| `string` / `FieldTree` | Required. Form binding (Reactive Forms vs. Signal Forms). |
+| `label` | `string` | Field label text. |
+| `placeholder` | `string` | Placeholder text. |
+| `type` | `string` | Native input type (`text`, `email`, `url`, `search`, `tel`, `color`). Default is `text` |
+| `prefixIcon` | `string` | Material icon placed at the start/left. |
+| `suffixIcon` | `string` | Material icon placed at the end/right. |
+| `isBtnIcon` | `boolean` | Converts the icon into a clickable button. |
+| `floatLabel` | `FloatLabelType` |  Controls label floating behavior (`auto`, `always`). |
+| `showMaxLength` | `boolean` | Displays remaining / maximum character length counter. |
+| `hiddenRequiredMarker` | `boolean` | Hides the asterisk (`*`) when the input is required. |
+| `clicked`| `Output<void>` | Emitted when the icon button is clicked (if `isBtnIcon` is enabled). |
 
-## exemple
+#### Example
 ```html
-<jp-input-text label="Nom" formControlName="nom" />
-<jp-signal-input-text label="Nom" [field]="profile.username" />
-```
-```js
-let profile = signal<any>({
-   username: ''
-});
+<!-- Reactive Forms -->
+<jp-input-text label="Username" formControlName="username" />
 
-let profileForm = form(this.profile, (path) => {
-   required(path.username);
-
-   // Le message remplace celui par defaut
-   maxLength(path.username, 3, { message: 'Custom message' })
-});
-
-let form = new FormGroup({
-   nom: new FormControl(
-      "",
-      [Validators.maxLength(3), Validators.email, Validators.required]
-   )
-});
+<!-- Signal Forms -->
+<jp-signal-input-text label="Username" [field]="profileForm.username" />
 ```
 
-# Input number
+### Input number
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `formControlName` / `[field]`| `string` / `FieldTree` | Required. Form binding (Reactive Forms vs. Signal Forms). |
+| `label` | `string` | Field label text. |
+| `placeholder` | `string` | Placeholder text. |
+| `step` | `number` | Step interval for incrementing or decrementing values. |
+| `prefixIcon` | `string` | Material icon placed at the start/left. |
+| `suffixIcon` | `string` | Material icon placed at the end/right. |
+| `textRight` | `boolean` | Aligns text content to the right. |
+| `hiddenArrows` | `boolean` | Hides browser default up/down step arrows. |
+| `floatLabel` | `FloatLabelType` |  Controls label floating behavior (`auto`, `always`). |
+| `hiddenRequiredMarker` | `boolean` | Hides the asterisk (`*`) when the input is required. |
 
-## Attributs
-- `formControlName`, `field`: Obligatoire
-- `label`: Nom de l'input
-- `placeholder`: Placeholder de l'input
-- `step`: Pas de l'incrémentation et décrémentation
-- `suffixIcon`: Définir et place l'icon à gauche (mat icon)
-- `prefixIcon`: Définir et place l'icon à droite (mat icon)
-- `floatLabel`: Bloquer le label en haut de l'input
-- `textRight`: Aligner le texte à droite
-- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-- `hiddenArrows`: Supprimer les flèches d'incrément et d'décrementale
+#### Example
 
-## exemple
 ```html
+<!-- Reactive Forms -->
 <jp-input-number label="Age" formControlName="age" />
-<jp-signal-input-number label="Age" [field]="profile.age" />
-```
-```js
-let profile = signal<any>({
-   age: 0
-});
 
-let profileForm = form(this.profile, (path) => {
-   required(path.username);
-
-   // Le message remplace celui par defaut
-   max(path.username, 100, { message: 'Custom message' });
-});
-
-let form = new FormGroup({
-   age: new FormControl(
-      "",
-      [Validators.max(100), Validators.required]
-   )
-});
+<!-- Signal Forms -->
+<jp-signal-input-number label="Age" [field]="profileForm.age" />
 ```
 
-# Input password
+### Input password
 
-## passwordValidator
-### Reactive form
-Donne la règle du mot de passe:
-- 1 minuscule
-- 1 majuscule
-- 1 chiffre
-- 1 caractère spécial
-- 8 caractères minimum au total
+#### password validator
+Includes built-in password policy enforcement:
+- At least one lowercase letter.
+- At least one uppercase letter.
+- At least one digit.
+- At least one special character.
+- Minimum length: 8 characters (customizable in Signal Forms).
 
-### Signal form
-Donne la règle du mot de passe:
-- 1 minuscule
-- 1 majuscule
-- 1 chiffre
-- 1 caractère spécial
-- X caractères minimum au total (defaut 8)
+- **Reactive forms:** `passwordValidator`
+- **Signal forms:** `password(path, { minLength?: number })` (default 8)
 
-## Attributs
-- `formControlName`, `field`: Obligatoire
-- `label`: Nom de l'input
-- `placeholder`: Placeholder de l'input
-- `floatLabel`: Bloquer le label en haut de l'input
-- `hiddenButtonSwitch`: Masquer le bouton qui permet d'afficher le mot de passe
-- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-- `showMaxLength`: Affiche la longeur max d'une chaine en bas de l'input
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `formControlName` / `[field]`| `string` / `FieldTree` | Required. Form binding (Reactive Forms vs. Signal Forms). |
+| `label` | `string` | Field label text. |
+| `floatLabel` | `FloatLabelType` | Controls label floating behavior (`auto`, `always`). |
+| `placeholder` | `string` | Placeholder text. |
+| `hiddenButtonSwitch` | `boolean` | Hides the toggle visibility eye button. |
+| `showMaxLength` | `boolean` | Displays the maximum length counter. |
+| `hiddenRequiredMarker` | `boolean` | Hides the asterisk (`*`) required marker. |
 
-## exemple
+#### Example
 ```html
-<jp-input-password label="Mot de passe" formControlName="mdp" />
-<jp-signal-input-password label="Mot de passe" [field]="form.mdp" />
-```
-```js
-let profile = signal<any>({
-   mdp: ''
-});
+<!-- Reactive Forms -->
+<jp-input-password label="Password" formControlName="password" />
 
-let profileForm = form(this.profile, (path) => {
-   password(path.mdp, { minLength: 8 });
-});
-
-let form = new FormGroup({
-   mdp: new FormControl(
-      "",
-      [passwordValidator, Validators.required]
-   )
-});
-```
-
-# Input Date
-
-## Validators
-
-### Reactive form
-- `minDateValidator`: Définir la date minimum possible dans le picker
-- `maxDateValidator`: Définir la date maximum possible dans le picker
-
-### Signal form
-- `minDate`: Définir la date minimum possible dans le picker
-- `maxDate`: Définir la date maximum possible dans le picker  
-
-**NOTE :** Les valeurs peuvent être dynamiques via une lambda
-
-## EDay
-Enum des jours de la semaine
-
-## EMonth
-Enum des mois de l'année (index 0 à 11)
-
-## Attributs
-- `formControlName`, `field`: Obligatoire
-- `label`: Nom de l'input
-- `iconPicker`: Changer l'icone du picker (mat icon)
-- `floatLabel`: Bloquer le label en haut de l'input
-- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-- `touchUi`: Afficher le picker en mode téléphone
-- `disabledDays`: Jours de la semaine à bloquer
-- `disabledDates`: Dates à bloquer dans chaque mois (mois-jour)
-- `disabledMonths`: Mois à bloquer
-- `disabledPartial`: Désactiver l'input mais garde le picker actif
-- `disabledWeekend`: Désactiver le samedi et dimanche
-- `disabledWeek`: Désactiver les jours de la semaine sauf samedi et dimanche
-- `disabledSundayAndMonday`: Désactiver dimanche et lundi
-
-## exemple
-```html
-<jp-input-date label="Date naissance" formControlName="date" />
-<jp-signal-input-date label="Date naissance" [field]="profileForm.date" />
-```
-```js
-let profile = signal<any>({
-   date: ''
-});
-
-let profileForm = form(this.profile, (path) => {
-   minDate(path.date, "2025-01-20"), // possible avec type Date et lambda
-   maxDate(path.date, () => this.MaFonction()) // possible avec type Date et string ici mode dynamique
-});
-
-let form = new FormGroup({
-   date: new FormControl(
-      null, [
-         minDateValidator("2025-01-01"), // possible avec type Date
-         maxDateValidator("2025-01-20"), // possible avec type Date
-         Validators.required
-      ]
-   )
-});
-```
-
-# Input textarea
-
-## Attributs
-- `formControlName`, `field`: Obligatoire
-- `label`: Nom de l'input
-- `placeholder`: Placeholder de l'input
-- `rows`: Nombre de ligne
-- `cols`: Nombre de colonne
-- `floatLabel`: Bloquer le label en haut de l'input
-- `showMaxLength`: Affiche la longeur max d'une chaine en bas de l'input
-- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-
-## exemple
-```html
-<jp-textarea label="Info en plus" formControlName="info" />
-<jp-signal-textarea label="Info en plus" [field]="profileForm.info" />
-```
-```js
-let profile = signal({
-   info: ''
-});
-
-let profileForm = form(this.profile, (path) => {
-   required(path.info);
-
-   // Le message remplace celui par defaut
-   maxLength(path.info, 3, { message: 'Custom message' })
-});
-
-let form = new FormGroup({
-   info: new FormControl(
-      "",
-      [Validators.maxLength(3_000)]
-   )
-});
-```
-
-# Input file button
-
-## Attributs
-- `formControlName`, `field`: option
-- `label`: Nom de l'input
-- `icon`: Icon du bouton (mat icon)
-- `accept`: Liste des extensions de fichier acceptés
-- `multiple`: Autoriser à mettre plusieurs fichier
-- `matButton`: Style du bouton
-- `matMiniFab`: Style du bouton
-- `matFab`: Style du bouton
-- `matIconButton`: Style du bouton
-- `extended`: Permet de mettre un label sur un bouton `matFab`
-- `fileChange`: Event pour récupérer le ou les fichier(s) choisi(s)
-
-## exemple
-```html
-<jp-input-file-btn matFab extended label="Info en plus" formControlName="fichier" />
-<jp-input-file-btn multiple label="Info en plus" (fileChange)="Info($event)" />
-
-<jp-signal-input-file-btn [field]="profileForm.info" />
-```
-```js
-let profile = signal({
-   info: null // (FileList | File)
-});
-
-let profileForm = form(this.profile, (path) => {
-   required(path.info);
-
-   // Le message remplace celui par defaut
-   maxLength(path.info, 3, { message: 'Custom message' })
-});
-
-let form = new FormGroup({
-   // Add multiple attribut => FileList
-   fichier: new FormControl<File>(null)
-});
-
-Info(_files: FileList)
-{
-   console.log(_files);
-}
-```
-
-# Input fil drop zone
-
-## Attributs
-- `icon`: Icon du drop zone (mat icon)
-- `accept`: Liste des extensions de fichier acceptés
-- `notMultiple`: Ne pas autoriser à mettre plusieurs fichier
-- `disabled`: Désactiver le drop zone
-- `info`: Texte à mettre en plus
-- `selectedFiles`: Event qui donne les fichiers
-
-## exemple
-```html
-<jp-input-file-drop-zone notMultiple (selectedFiles)="onChange($event)" />
+<!-- Signal Forms -->
+<jp-signal-input-password label="Password" [field]="profileForm.password" />
 ```
 ```ts
-onChange(_liste: FileList): void
-{
-   console.log(_liste);
-}
+import { passwordValidator, password } from '@jetonpeche/angular-mat-input';
+
+// Signal Forms
+const profile = signal({ password: '' });
+const profileForm = form(profile, (path) => {
+  required(path.password);
+  password(path.password, { minLength: 10 }); // Configurable minimum length (default: 8)
+});
+
+// Reactive Forms
+const formGroup = new FormGroup({
+  password: new FormControl('', [Validators.required, passwordValidator])
+});
 ```
 
-# Input autocomplete
+### Date picker input
 
-## Attributs
-- `formControlName`, `field`: Obligatoire
-- `dataSource`: Obligatoire
-- `label`: Nom de l'input
-- `placeholder`: Placeholder de l'input
-- `floatLabel`: Bloquer le label en haut de l'input
-- `hiddenRequiredMarker`: Supprimer * quand l'input est obligatoire
-- `requireSelection`: La valeur choisi doit être dans les choix proposés
-- `disabledFilterComplete`: Désactiver le filtre des choix de l'autocomplete
-- `autoDesactiveFirstOption`: Désactiver l'auto selection du premier choix
-- `opened`: Event ouverture autocomplete
-- `closed`: Event déselection autocomplete
-- `autocompleteChange`: Event change de l'input
-- `multiple`: Selectionner plusieurs valeurs
+#### Validation helpers
+- **Reactive forms:** `minDateValidator(date: string | Date)`, `maxDateValidator(date: string | Date)`  
+- **Signal forms:** `minDate(path, Date | string | Fn)`, `maxDate(path, Date | string | Fn)` (accepts static dates, strings or dynamic lambda callbacks)
 
-## exemple
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `formControlName` / `[field]`| `string` / `FieldTree` | Required. Form binding (Reactive Forms vs. Signal Forms). |
+| `label` | `string` | Field label text. |
+| `iconPicker` | `string` | Custom Material icon for the picker button. |
+| `floatLabel` | `FloatLabelType` | Controls label floating behavior (auto, always). |
+| `touchUi` | `boolean` | Enables mobile touch-optimized dialog mode. |
+| `disabledPartial` | `boolean` | Disables keyboard text input while keeping the calendar picker active |
+| `disabledDays` | `EDay[]` | Days of the week to disable. |
+| `disabledMonths` | `EMonth[]`| Months of the year to disable (index `0` to `11`). |
+| `disabledDates` | `string[]` | Specific dates to block each year (MM-DD) |
+| `disabledWeekend` | `boolean` | Disables Saturdays and Sundays. |
+| `disabledWeek` | `boolean` | Disables weekdays (Monday–Friday). |
+| `disabledSundayAndMonday` | `boolean`| Disables Sundays and Mondays. |
+| `hiddenRequiredMarker` | `boolean` | Hides the asterisk (`*`) required marker. |
+
+#### Enums
+- `EDay`:Enum for days of the week
+- `EMonth`: Enum for months of the year (indexed from 0 to 11)
+
+#### Example
 ```html
-<jp-autocomplete (autocompleteChange)="onChange($event)" 
-                 label="Chiffre" 
-                 [dataSource]="liste()" 
-                 formControlName="info" />
+<!-- Reactive Forms -->
+<jp-input-date label="Birth Date" formControlName="date" />
 
-<jp-signal-autocomplete (autocompleteChange)="onChange($event)" 
-                 label="Chiffre" 
-                 [dataSource]="liste()" 
-                 [field]="profileForm.info" />
+<!-- Signal Forms -->
+<jp-signal-input-date label="Birth Date" [field]="profileForm.date" />
 ```
 ```ts
-liste = signal<AutocompleteDataSource[]>([{
-   display: "Un",
-   value: 1
-},
-{
-   display: "Deux",
-   value: 2
-}]);
+import { minDateValidator, maxDateValidator, minDate, maxDate } from '@jetonpeche/angular-mat-input';
 
-let profile = signal({
-   info: ''
+// Signal Forms
+const profile = signal({ date: null as Date | null });
+const profileForm = form(profile, (path) => {
+  required(path.date);
+
+  // Static string or Date instance
+  minDate(path.date, '2025-01-01');
+
+  // Dynamic evaluation using a lambda callback
+  maxDate(path.date, () => new Date());
 });
 
-let profileForm = form(this.profile, (path) => {
-   required(path.info);
-
-   // Le message remplace celui par defaut
-   maxLength(path.info, 3, { message: 'Custom message' })
+// Reactive Forms
+const formGroup = new FormGroup({
+  date: new FormControl(null, [
+    Validators.required,
+    minDateValidator('2025-01-01'), // Accepts string or Date
+    maxDateValidator(new Date(2026, 11, 31))
+  ])
 });
-
-let form = new FormGroup({
-   info: new FormControl<number>(
-      "",
-      [Validators.Required]
-   )
-});
-
-onChange(_valeur: string): void
-{
-   console.log(_valeur);
-}
 ```
 
-# Button loader
+### Autocomplete
+Handles single-item autocomplete selection as well as multiple selection using Material Chips.
 
-## Attributs
-- `icon`: Icon du bouton (mat icon)
-- `label`: Texte du bouton
-- `matTooltip`: Texte du tooltip
-- `matTooltipPosition`: Position du tooltip par defaut
-- `matButton`: Style du bouton (defaut filled)
-- `loading`: Etat pour afficher ou non le spinner
-- `matMiniFab`: Style du bouton
-- `matFab`: Style du bouton
-- `matIconButton`: Style du bouton
-- `extended`: Permet de mettre un label sur un bouton `matFab`
-- `disabledInteractive`: Désactiver les events et focus du bouton
-- `disableRipple`: Désactiver l'effet de clique
-- `disabled`: Désactiver le bouton
-- `matDialogClose`: Même fonctionnement que `mat-dialog-close`
-- `clicked`: Event click du bouton
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `formControlName` / `[field]`| `string` / `FieldTree` | **Required**. Form binding (Reactive Forms vs. Signal Forms). |
+| `label` | `string` | Field label text. |
+| `dataSource` | `Model<AutocompleteDataSource[]>` | **Required**. Array of `{ display: string, value: any }` items. |
+| `multiple` | `boolean` | Enables multi-select mode rendered as Material Chips. |
+| `requireSelection` | `boolean` | Forces the value to match an item in `dataSource`. If `false`, permits free text entry.
+| `disabledFilterComplete` | `boolean` | Disables internal client-side autocomplete list filtering. |
+| `autoDesactiveFirstOption` | `boolean` | Prevents automatically highlighting the first option. |
+| `floatLabel` | `FloatLabelType` | Controls label floating behavior (`auto`, `always`). |
+| `hiddenRequiredMarker` | `boolean` | Hides the asterisk (`*`) required marker. |
+| `autocompleteChange` | `Output<string>` | Emits raw search string on every keystroke. |
+| `opened / closed` | `Output<void>` | Emitted when dropdown overlay opens/closes. |
 
-## Information
-`loading` = `true` => `disabledInteractive` activé
-
-## Exemple
-
-## exemple
+#### Example
 ```html
-<jp-button-loader icon="plus" 
-                  label="Click !" 
-                  matFab
-                  extended
-                  [loading]="false" 
-                  (clicked)="onClick()" />
+<!-- Single Selection -->
+<jp-autocomplete label="Favorite item" 
+                           [dataSource]="list()" 
+                           formControlName="item" />
+
+<!-- Multiple Selection (Chips) with Free Text Input -->
+<jp-signal-autocomplete label="Tags" 
+                                    multiple 
+                                    requireSelection
+                                    [dataSource]="tagList()" 
+                                    [field]="profileForm.tags" />
 ```
 ```ts
-onClick(): void
+const list = signal<AutocompleteDataSource[]>([
+  { display: 'One', value: 1 },
+  { display: 'Two', value: 2 }
+]);
+
+// Signal Forms
+const profile = signal({ tags: [] as string[] });
+const profileForm = form(profile, (path) => 
 {
-   console.log("Coucou");
-}
+  required(path.tags);
+});
+
+// Reactive Forms
+const formGroup = new FormGroup({
+  item: new FormControl<number | null>(null, [Validators.required])
+});
 ```
+
+### Textarea
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `formControlName` / `[field]`| `string` / `FieldTree` | Required. Form binding (Reactive Forms vs. Signal Forms). |
+| `label` | `string` | Field label text. |
+| `placeholder` | `string` | Placeholder text. |
+| `rows` / `cols` | `string` | Dimensions of the textarea element. |
+| `showMaxLength` | `boolean` | Displays the maximum length counter. |
+| `floatLabel` | `FloatLabelType` |  Controls label floating behavior (`auto`, `always`). |
+| `hiddenRequiredMarker` | `boolean` | Hides the asterisk (`*`) when the input is required. |
+
+#### Example
+```html
+<!-- Reactive Forms -->
+<jp-textarea label="Additional details" [rows]="4" formControlName="details" />
+
+<!-- Signal Forms -->
+<jp-signal-textarea label="Additional details" [rows]="4" [field]="profileForm.details" />
+```
+
+### Inputs file
+
+#### Button file input
+A file picker integrated into an Angular Material button style:
+```html
+<jp-input-file-btn matFab 
+                           extended 
+                           label="Upload CV" 
+                           accept=".pdf,.docx" 
+                           (fileChange)="onFileSelected($event)" />
+
+<jp-signal-input-file-btn [field]="profileForm.file" />
+```
+
+#### Drop zone file input
+```html
+<jp-input-file-drop-zone accept="image/*" 
+                                       notMultiple
+                                       (selectedFiles)="onFilesDropped($event)" />
+```
+
+### Button loader
+A Material button that displays a loading spinner and handles interaction locks during async operations.
+When `loading` is `true`, `disabledInteractive` is automatically turned on to lock button actions.
+
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `label` | `string` | Field label text. |
+| `icon` | `string` | Material icon name. |
+| `loading` | `boolean` | Replaces or accompanies the icon with a spinner and locks interactions. |
+| `matButton`, `matFab`, `matMiniFab`, `matIconButton` | `boolean` | Style variants matching Angular Material buttons. |
+| `extended` `| `boolean` | Extends the matFab style with a text label. |
+| `matTooltip` / `matTooltipPosition` | `string` / `TooltipPosition` | Optional tooltip text and position |
+| `matDialogClose` | `any` | Closes the current dialog on click, mirroring `mat-dialog-close`
+| `disabledInteractive` | `boolean` | Disables focus and events while maintaining visual styles. |
+| `disableRipple` | `boolean` | Disables the ripple effect. |
+| `disabled` | `boolean` | Disables the button. |
+| `clicked` | `Output<void>` | Click event emitter. |
+
+#### Example
+```html
+<jp-button-loader label="Save Changes" 
+                           icon="check" 
+                           matButton 
+                           [loading]="isSaving()" 
+                           (clicked)="saveProfile()" />
+```
+
+## License
+MIT
