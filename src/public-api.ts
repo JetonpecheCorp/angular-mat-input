@@ -7,6 +7,7 @@ export * from "./lib/EMonth"
 
 export * from "./lib/buttonLoader/buttonLoader"
 export * from "./lib/inputFileDropZone/inputFileDropZone"
+export * from "./lib/inputSearch/inputSearch"
 export * from "./lib/provide"
 
 export * from "./lib/reactive-form/inputText/inputText"

@@ -31,6 +31,9 @@ Simplify form development with Angular Material. This package wraps native Angul
   - [6. Textarea](#textarea)
   - [7. File Inputs](#inputs-file)
   - [8. Button Loader](#button-loader)
+  - [9. Search Bar](#search-bar)
+- [Plugins & Utilities](#plugins--utilities)
+  - [Debounce Event Plugin](#debounce-event-plugin)
 - [License](#license)
 
 ## Installation & Configuration
@@ -339,6 +342,55 @@ When `loading` is `true`, `disabledInteractive` is automatically turned on to lo
                  matButton="filled"
                  [loading]="isSaving()" 
                  (clicked)="saveProfile()" />
+```
+
+### Search bar
+A standalone search input component designed to work without forms (`NgForm` or `FormGroup`). It features built-in clear action, keyboard submission, and configurable debounce timing.
+
+| Attribute | Type | Description |
+|:--- | :--- | :--- |
+| `value` | `model<string>` | Two-way bound query string value. |
+| `debounceTime` | `number` | Debounce duration in milliseconds before emitting `search`. Default is `600`. |
+| `label` | `string` | Floating label text. |
+| `placeholder` | `string` | Placeholder text. Default is `'Rechercher...'`. |
+| `hint` | `string` | Helper text displayed below the field. |
+| `prefixIcon` | `string` | Material icon name displayed before the input. Default is `'search'`. |
+| `suffixIcon` | `string` | Material icon name displayed after the input. |
+| `isBtnIcon` | `boolean` | Renders prefix/suffix icons as clickable buttons. Default is `false`. |
+| `clearable` | `boolean` | Displays an automatic clear button when text is present. Default is `true`. |
+| `floatLabel` | `FloatLabelType` | Controls label floating behavior (`auto`, `always`). Default is `'auto'`. |
+| `search` | `Output<string>` | Emits trimmed query after the debounce delay or immediately on Enter key press. |
+| `clicked` | `Output<void>` | Emitted when an icon button is clicked (if `isBtnIcon` is enabled). |
+
+#### Example
+```html
+<jp-search-bar [(value)]="searchQuery" 
+                [debounceTime]="1000"
+                placeholder="Search users or items..."
+                (search)="onSearch($event)"/>
+```
+
+## Plugins & Utilities
+
+### Debounce Event Plugin
+
+When using `provideJpMatInput()`, an Angular `EventManagerPlugin` is automatically registered to allow declarative debouncing directly within your HTML templates.
+
+This plugin enables listening to delayed DOM events without requiring additional directives, RxJS pipelines:
+
+* Supports optional delay suffixes in milliseconds (e.g., `(input.debounce.500)`).
+* Defaults to a **600ms** delay when unspecified (`(input.debounce)`).
+
+#### Template Usage
+```html
+<!-- Default 600ms debounce -->
+<input matInput (input.debounce)="onFilter($event)" />
+
+<!-- Custom 500ms debounce -->
+<input matInput (input.debounce.500)="onFilter($event)" />
+
+<!-- Works with standard HTML inputs as well -->
+<input type="text" (keyup.debounce.400)="onKeyUp($event)" />
 ```
 
 ## License

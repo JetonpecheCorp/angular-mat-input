@@ -16,7 +16,7 @@ export class DebounceEventPlugin extends EventManagerPlugin
     const listeParti = eventName.split('.');
     const baseEvent = listeParti[0];
     const delaisParse = parseInt(listeParti[2], 10);
-    const delais = !isNaN(delaisParse) ? delaisParse : 300;
+    const delais = !isNaN(delaisParse) ? delaisParse : 600;
 
     let timer: ReturnType<typeof setTimeout> | null = null;
 

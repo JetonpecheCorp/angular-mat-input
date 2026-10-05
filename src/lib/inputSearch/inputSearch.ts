@@ -24,9 +24,9 @@ export class SearchBarComponent
     /**
      * Debounce duration in milliseconds before emitting the search event.
      * Set to 0 to disable debouncing.
-     * @default 300
+     * @default 600
      */
-    debounceTime = input(300, { transform: numberAttribute });
+    debounceTime = input(600, { transform: numberAttribute });
 
     /**
      * Floating label text displayed above the input.
