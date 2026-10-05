@@ -15,13 +15,45 @@ import { TraductionPipe } from '../../traductionPipe';
 })
 export class InputPassword implements ControlValueAccessor, OnInit
 {
+    /**
+     * Floating label text displayed above the textarea.
+     */
     label = input<string>();
-    placeholder = input<string>();
 
+    /**
+     * Supplementary descriptive text displayed below the textarea.
+     */
+    hint = input<string>();
+
+    /**
+     * Placeholder text displayed when the textarea is empty.
+     * @default ''
+     */
+    placeholder = input<string>('');
+
+    /**
+     * Floating label behavior forwarded to MatFormField.
+     * @default 'always'
+     */
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
-    hiddenRequiredMarker = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to hide the toggle button used to show or mask password visibility.
+     * @default false
+     */
     hiddenButtonSwitch = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to display the character counter hint when a maximum length is defined.
+     * @default false
+     */
     showMaxLength = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to hide the required asterisk marker on the label.
+     * @default false
+     */
+    hiddenRequiredMarker = input(false, { transform: booleanAttribute });
 
     protected estCacher = signal<boolean>(true);
     protected minLength = signal<number | null>(null);

@@ -14,14 +14,37 @@ import { NgClass } from '@angular/common';
 })
 export class InputFileDropZone
 {
+    /**
+     * Material icon name displayed within the drop zone area.
+     * @default 'upload_file'
+     */
     icon = input<string>("upload_file");
+
+    /**
+     * Comma-separated list of allowed file extensions or MIME types (e.g., 'image/*', '.pdf').
+     */
     accept = input<string>();
 
-    /** Donner des informations en plus comme les fichiers acceptés ou autre */
+    /**
+     * Additional explanatory text displayed below the main label (e.g., supported formats, max size).
+     */
     info = input<string>();
+
+    /**
+     * Emits the selected FileList upon manual selection or drop.
+     */
     selectedFiles = output<FileList>();
 
+    /**
+     * Whether to restrict file selection to a single file.
+     * @default false
+     */
     notMultiple = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether user interactions with the drop zone are disabled.
+     * @default false
+     */
     disabled = input(false, { transform: booleanAttribute });
 
     protected estDragger = signal<boolean>(false);

@@ -1,0 +1,49 @@
+<mat-form-field [floatLabel]="floatLabel()">
+
+    @if (label()) 
+    {
+        <mat-label>{{ label() }}</mat-label>
+    }
+
+    <!-- Icône préfixe -->
+    @if (prefixIcon() && isBtnIcon()) 
+    {
+        <button matPrefix matIconButton [aria-label]="prefixIcon()" type="button" (click)="BtnClicker()">
+            <mat-icon>{{ prefixIcon() }}</mat-icon>
+        </button>
+    } 
+    @else if (prefixIcon() && !isBtnIcon()) 
+    {
+        <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    <input matInput 
+            type="search" 
+            [placeholder]="placeholder()" 
+            [value]="value()"
+            (input)="Rechercher($event)"
+            (keydown.enter)="ValiderRecherche()" />
+
+    @if (clearable() && value()) 
+    {
+        <button matSuffix matIconButton aria-label="Effacer la recherche" type="button" (click)="Reset()">
+            <mat-icon>close</mat-icon>
+        </button>
+    }
+    @else if (suffixIcon() && isBtnIcon())
+    {
+        <button matSuffix matIconButton [aria-label]="suffixIcon()" type="button" (click)="BtnClicker()">
+            <mat-icon>{{ suffixIcon() }}</mat-icon>
+        </button>
+    } 
+    @else if (suffixIcon() && !isBtnIcon()) 
+    {
+        <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    }
+
+    @if (hint()) 
+    {
+        <mat-hint>{{ hint() }}</mat-hint>
+    }
+
+</mat-form-field>

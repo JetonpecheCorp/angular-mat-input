@@ -33,40 +33,79 @@ import { TraductionPipe } from '../../traductionPipe';
 })
 export class InputDateSignal
 {
+   /**
+     * Target signal form field tree representing the state and validation metadata.
+     */
     readonly field = input.required<FieldTree<Date | string | null>>();
 
+    /**
+     * Floating label text displayed above the date input field.
+     */
     label = input<string>();
 
-    /** Changer le logo du picker */
+    /**
+     * Custom Material icon name used for the datepicker toggle button.
+     */
     iconPicker = input<string>();
 
-    /** Mois à bloquer */
+    /**
+     * List of calendar months to disable within the datepicker.
+     * @default []
+     */
     disabledMonths = input<EMonth[]>([]);
 
-    /** Jours de la semaine à bloquer */
+    /**
+     * List of weekdays to disable within the datepicker.
+     * @default []
+     */
     disabledDays = input<EDay[]>([]);
 
     /**
-     * Numéro du jour à bloquer  
-     * Ne pas mettre de 0 sur un chiffre (exemple 01 => 1)  
-     * format: MM-DD
+     * Specific recurring calendar dates to disable formatted as 'M-D' without leading zeros (e.g., '12-25').
+     * @default []
      */
     disabledDates = input<string[]>([]);
 
+    /**
+     * Floating label behavior forwarded to MatFormField.
+     * @default 'always'
+     */
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
-    touchUi = input<boolean>(false, { transform: booleanAttribute });
-    hiddenRequiredMarker = input<boolean>(false, { transform: booleanAttribute });
 
-    /** Désactiver l'input mais pas le bouton picker */
+    /**
+     * Whether the datepicker UI opens as a dialog rather than a popup panel.
+     * @default false
+     */
+    readonly touchUi = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to hide the required asterisk marker on the label.
+     * @default false
+     */
+    hiddenRequiredMarker = input(false, { transform: booleanAttribute });
+
+    /**
+     * Sets the text input to readonly while keeping the datepicker toggle active.
+     * @default false
+     */
     disabledPartial = input(false, { transform: booleanAttribute });
 
-    /** Désactiver le samedi et dimanche */
+    /**
+     * Whether to disable weekend days (Saturday and Sunday).
+     * @default false
+     */
     disabledWeekend = input(false, { transform: booleanAttribute });
 
-    /** Désactiver tout sauf le samedi et dimanche */
+    /**
+     * Whether to disable all weekdays, leaving only weekends selectable.
+     * @default false
+     */
     disabledWeek = input(false, { transform: booleanAttribute });
 
-    /** Désactiver le dimanche et lundi */
+    /**
+     * Whether to disable Sundays and Mondays.
+     * @default false
+     */
     disabledSundayAndMonday = input(false, { transform: booleanAttribute });
 
     /** Liste des erreurs indexées par leur type (kind) */

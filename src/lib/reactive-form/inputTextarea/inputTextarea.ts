@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, input, OnInit, Self, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttribute, OnInit, Self, signal } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,14 +14,53 @@ import { TraductionPipe } from '../../traductionPipe';
 })
 export class InputTextarea implements ControlValueAccessor, OnInit
 {
+    /**
+     * Floating label text displayed above the textarea.
+     */
     label = input<string>();
-    placeholder = input<string>();
-    rows = input<number | null>(null);
-    cols = input<number |null>(null);
 
+    /**
+     * Supplementary descriptive text displayed below the textarea.
+     */
+    hint = input<string>();
+
+    /**
+     * Placeholder text displayed when the textarea is empty.
+     * @default ''
+     */
+    placeholder = input<string>('');
+
+    /**
+     * Number of visible text lines for the textarea.
+     * Transformed automatically from a string or number input.
+     * @default null
+     */
+    rows = input<number | null, unknown>(null, { transform: numberAttribute });
+
+    /**
+     * Visible width of the text control in average character widths.
+     * Transformed automatically from a string or number input.
+     * @default null
+     */
+    cols = input<number | null, unknown>(null, { transform: numberAttribute });
+
+    /**
+     * Floating label behavior forwarded to MatFormField.
+     * @default 'always'
+     */
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
+
+    /**
+     * Whether to display the character counter hint when a maximum length is defined.
+     * @default false
+     */
     showMaxLength = input(false, { transform: booleanAttribute });
-    hiddenRequiredMarker = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to hide the required asterisk marker on the label.
+     * @default false
+     */
+    readonly hiddenRequiredMarker = input(false, { transform: booleanAttribute });
 
     protected minLength = signal<number | null>(null);
     protected maxLength = signal<number | null>(null);

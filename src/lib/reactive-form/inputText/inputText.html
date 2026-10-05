@@ -41,6 +41,11 @@
     {
         <mat-hint align="end">{{ control.value?.length ?? 0 }} / {{ maxLength() }}</mat-hint>
     }
+
+    @if (hint())
+    {
+        <mat-hint>{{ hint() }}</mat-hint>
+    }
     
     @if (control.hasError('required')) 
     {

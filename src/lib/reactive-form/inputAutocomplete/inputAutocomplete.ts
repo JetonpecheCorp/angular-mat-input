@@ -18,26 +18,70 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 })
 export class InputAutocomplete implements ControlValueAccessor, OnInit, OnChanges
 {
-    /** Event autocomplete value changed */
+    /**
+     * Emits the query string whenever the text input value changes.
+     */
     autocompleteChange = output<string>();
 
-    /** Event autocomplete opened */
+    /**
+     * Emits when the autocomplete panel opens.
+     */
     opened = output<void>();
 
-    /** Event autocomplete closed */
+    /**
+     * Emits when the autocomplete panel closes.
+     */
     closed = output<void>();
 
+    /**
+     * Floating label text displayed above the autocomplete input.
+     */
     label = input<string>();
+
+    /**
+     * Placeholder text displayed when the input is empty.
+     */
     placeholder = input<string>();
+
+    /**
+     * Array of available options used to populate the autocomplete suggestions.
+     */
     dataSource = model.required<AutocompleteDataSource[]>();
 
-    matAutocompletePosition = input<"auto" | "above" | "below">("auto");
-
+    /**
+     * Floating label behavior forwarded to MatFormField.
+     * @default 'always'
+     */
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
+
+    /**
+     * Whether to hide the required asterisk marker on the label.
+     * @default false
+     */
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to prevent the first option from being highlighted automatically when the panel opens.
+     * @default false
+     */
     autoDesactiveFirstOption = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether the input must match one of the predefined autocomplete options.
+     * @default false
+     */
     requireSelection = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to bypass client-side filtering (e.g., when filtering is handled by a remote API).
+     * @default false
+     */
     disabledFilterComplete = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether multiple values can be selected as distinct chips.
+     * @default false
+     */
     multiple = input(false, { transform: booleanAttribute });
 
     protected dataSourceClone = signal<AutocompleteDataSource[]>([]);

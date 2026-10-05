@@ -13,20 +13,20 @@
             <mat-icon>{{ suffixIcon() }}</mat-icon>
         </button>
     }
-    @else if (suffixIcon() && !isBtnIcon()) 
+    @else if (suffixIcon() && !isBtnIcon())
     {
         <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
     }
 
     @if (prefixIcon() && isBtnIcon())
     {
-        <button matSuffix matIconButton [aria-label]="prefixIcon()" type="button" (click)="Btnclicker()">
+        <button matPrefix matIconButton [aria-label]="prefixIcon()" type="button" (click)="Btnclicker()">
             <mat-icon>{{ prefixIcon() }}</mat-icon>
         </button>
     }
     @else if (prefixIcon() && !isBtnIcon())
     {
-        <mat-icon matSuffix>{{ prefixIcon() }}</mat-icon>
+        <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
     }
 
     @if (hint())

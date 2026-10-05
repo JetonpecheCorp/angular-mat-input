@@ -15,20 +15,65 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class InputText implements ControlValueAccessor, OnInit
 {
+    /**
+     * Floating label text displayed above the input field.
+     */
     label = input<string>();
-    placeholder = input<string>();
-    type = input<string>("text");
+
+    /**
+     * Placeholder text displayed when the input field is empty.
+     * @default ''
+     */
+    placeholder = input<string>('');
+
+    /**
+     * Native input element type (e.g., 'text', 'password', 'email', 'tel').
+     * @default 'text'
+     */
+    type = input<string>('text');
+
+    /**
+     * Supplementary descriptive text displayed below the input field.
+     */
+    hint = input<string>();
+
+    /**
+     * Material icon name displayed after the input field.
+     */
     suffixIcon = input<string>();
+
+    /**
+     * Material icon name displayed before the input field.
+     */
     prefixIcon = input<string>();
 
-    /** Icon button click event */
-    clicked = output();
+    /**
+     * Emits when a prefix or suffix icon button is clicked.
+     */
+    clicked = output<void>();
 
-    /** Convert icon to button icon */
+    /**
+     * Whether prefix or suffix icons should be rendered as clickable icon buttons.
+     * @default false
+     */
     isBtnIcon = input(false, { transform: booleanAttribute });
 
+    /**
+     * Floating label behavior forwarded to MatFormField.
+     * @default 'always'
+     */
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
+
+    /**
+     * Whether to display the character counter hint when a maximum length is defined.
+     * @default false
+     */
     showMaxLength = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to hide the required asterisk marker on the label.
+     * @default false
+     */
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
 
     protected minLength = signal<number | null>(null);

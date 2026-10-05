@@ -15,14 +15,31 @@
             [attr.max]="max()"
             [attr.step]="step()">
 
-    @if(suffixIcon())
+    @if (prefixIcon() && isBtnIcon())
+    {
+        <button matPrefix matIconButton [aria-label]="prefixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ prefixIcon() }}</mat-icon>
+        </button>
+    }
+    @else if (prefixIcon() && !isBtnIcon())
+    {
+        <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    @if (suffixIcon() && isBtnIcon()) 
+    {
+        <button matSuffix matIconButton [aria-label]="suffixIcon()" type="button" (click)="Btnclicker()">
+            <mat-icon>{{ suffixIcon() }}</mat-icon>
+        </button>
+    }
+    @else if (suffixIcon() && !isBtnIcon())
     {
         <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
     }
 
-    @if(prefixIcon())
+    @if (hint())
     {
-        <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+        <mat-hint>{{ hint() }}</mat-hint>
     }
     
     @if (control.hasError('required')) 

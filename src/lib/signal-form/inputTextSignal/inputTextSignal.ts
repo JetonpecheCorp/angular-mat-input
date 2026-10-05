@@ -15,26 +15,72 @@ import { FieldTree, FormField, ValidationError } from "@angular/forms/signals";
 })
 export class InputTextSignal
 {
+    /**
+     * Target signal form field tree representing the state and validation metadata.
+     */
     readonly field = input.required<FieldTree<string>>();
 
+    /**
+     * Floating label text displayed above the input field.
+     */
     label = input<string>();
+
+    /**
+     * Placeholder text displayed when the input field is empty.
+     * @default ''
+     */
     placeholder = input<string>('');
+
+    /**
+     * Native input element type (e.g., 'text', 'password', 'email', 'tel').
+     * @default 'text'
+     */
     type = input<string>('text');
+
+    /**
+     * Supplementary descriptive text displayed below the input field.
+     */
     hint = input<string>();
+
+    /**
+     * Material icon name displayed after the input field.
+     */
     suffixIcon = input<string>();
+
+    /**
+     * Material icon name displayed before the input field.
+     */
     prefixIcon = input<string>();
 
-    /** Événement de clic sur l'icône bouton */
+    /**
+     * Emits when a prefix or suffix icon button is clicked.
+     */
     clicked = output<void>();
 
-    /** Convertir l'icône en bouton cliquable */
+    /**
+     * Whether prefix or suffix icons should be rendered as clickable icon buttons.
+     * @default false
+     */
     isBtnIcon = input(false, { transform: booleanAttribute });
 
+    /**
+     * Floating label behavior forwarded to MatFormField.
+     * @default 'always'
+     */
     floatLabel = input("auto" as FloatLabelType, { transform: () => "always" as FloatLabelType });
+
+    /**
+     * Whether to display the character counter hint when a maximum length is defined.
+     * @default false
+     */
     showMaxLength = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to hide the required asterisk marker on the label.
+     * @default false
+     */
     hiddenRequiredMarker = input(false, { transform: booleanAttribute });
 
-    /** Valeur textuelle courante pour le compteur */
     protected valeurLongueur = computed(() => (this.field()().value() ?? '').length);
 
     protected listeErreur = computed(() =>

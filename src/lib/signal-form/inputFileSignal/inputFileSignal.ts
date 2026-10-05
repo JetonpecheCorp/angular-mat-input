@@ -12,20 +12,73 @@ import { FieldTree } from '@angular/forms/signals';
 })
 export class InputFileSignal
 {
+/**
+     * Target signal form field tree representing the state and validation metadata.
+     */
     readonly field = input<FieldTree<FileList | File | null>>();
 
+    /**
+     * Emits the selected file or file list when the native file selection changes.
+     */
     fileChange = output<FileList | File>();
 
+    /**
+     * Button text label displayed next to or below the icon.
+     * @default ''
+     */
     label = input<string>('');
+
+    /**
+     * Material icon name displayed within the button.
+     */
     icon = input<string>();
+
+    /**
+     * Comma-separated list of allowed file extensions or MIME types (e.g., 'image/*', '.pdf').
+     */
     accept = input<string>();
+
+    /**
+     * Visual style variant applied to standard Angular Material buttons.
+     * @default 'filled'
+     */
     matButton = input<MatButtonAppearance>('filled');
 
+    /**
+     * Whether multiple files can be selected simultaneously.
+     * @default false
+     */
     multiple = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Renders the button as a mini floating action button (Mini FAB).
+     * @default false
+     */
     matMiniFab = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Renders the button as a standard floating action button (FAB).
+     * @default false
+     */
     matFab = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Renders the button as a compact icon-only button.
+     * @default false
+     */
     matIconButton = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Expands the FAB layout to include both an icon and a text label.
+     * Only applies when `matFab` is true.
+     * @default false
+     */
     extended = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Whether the button is interactively disabled.
+     * @default false
+     */
     disabled = input<boolean>(false, { transform: booleanAttribute });
 
     // État désactivé combiné avec le champ de formulaire

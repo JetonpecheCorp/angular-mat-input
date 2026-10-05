@@ -2,7 +2,7 @@
 {
     <button type="button" 
             matFab
-            [disabled]="disabled()"
+            [disabled]="isDisabled()"
             (click)="Ouvrir($event, inputFile)">
         <mat-icon>{{ icon() }}</mat-icon>
     </button>  
@@ -12,7 +12,7 @@
     <button type="button" 
             matFab
             extended
-            [disabled]="disabled()"
+            [disabled]="isDisabled()"
             (click)="Ouvrir($event, inputFile)">
         <mat-icon>{{ icon() }}</mat-icon>
         {{ label() }}
@@ -22,7 +22,7 @@
 {
     <button type="button" 
             matMiniFab
-            [disabled]="disabled()"
+            [disabled]="isDisabled()"
             (click)="Ouvrir($event, inputFile)">
         <mat-icon>{{ icon() }}</mat-icon>
     </button>  
@@ -31,7 +31,7 @@
 {
     <button type="button" 
             matIconButton
-            [disabled]="disabled()"
+            [disabled]="isDisabled()"
             (click)="Ouvrir($event, inputFile)">
         <mat-icon>{{ icon() }}</mat-icon>
     </button> 
@@ -39,7 +39,7 @@
 @else 
 {
     <button type="button" 
-            [disabled]="disabled()"
+            [disabled]="isDisabled()"
             (click)="Ouvrir($event, inputFile)" 
             [matButton]="matButton()">
         @if(icon())

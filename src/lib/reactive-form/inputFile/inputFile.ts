@@ -12,18 +12,63 @@ import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIcon
 })
 export class InputFile implements ControlValueAccessor
 {
+    /**
+     * Emits the selected file or file list when the native file selection changes.
+     */
     fileChange = output<FileList | File>();
 
-    label = input<string>();
-    icon = input<string>();
-    accept = input<string>();
-    matButton = input<MatButtonAppearance>("filled");
+    /**
+     * Button text label displayed next to or below the icon.
+     * @default ''
+     */
+    label = input<string>('');
 
-    multiple = input(false, { transform: booleanAttribute });
-    matMiniFab = input(false, { transform: booleanAttribute });
-    matFab = input(false, { transform: booleanAttribute });
-    matIconButton = input(false, { transform: booleanAttribute });
-    extended = input(false, { transform: booleanAttribute });
+    /**
+     * Material icon name displayed within the button.
+     */
+    icon = input<string>();
+
+    /**
+     * Comma-separated list of allowed file extensions or MIME types (e.g., 'image/*', '.pdf').
+     */
+    accept = input<string>();
+
+    /**
+     * Visual style variant applied to standard Angular Material buttons.
+     * @default 'filled'
+     */
+    matButton = input<MatButtonAppearance>('filled');
+
+    /**
+     * Whether multiple files can be selected simultaneously.
+     * @default false
+     */
+    multiple = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Renders the button as a mini floating action button (Mini FAB).
+     * @default false
+     */
+    matMiniFab = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Renders the button as a standard floating action button (FAB).
+     * @default false
+     */
+    matFab = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Renders the button as a compact icon-only button.
+     * @default false
+     */
+    matIconButton = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Expands the FAB layout to include both an icon and a text label.
+     * Only applies when `matFab` is true.
+     * @default false
+     */
+    extended = input<boolean>(false, { transform: booleanAttribute });
     
     protected disabled = signal<boolean>(false);
     
