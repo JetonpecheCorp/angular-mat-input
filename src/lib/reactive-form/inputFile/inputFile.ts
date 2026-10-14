@@ -2,13 +2,14 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input, Optional, 
 import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton } from "@angular/material/button";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'jp-input-file-btn',
   standalone: true,
   templateUrl: './inputFile.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatIconModule, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton]
+  imports: [ReactiveFormsModule, MatTooltipModule, MatIconModule, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton]
 })
 export class InputFile implements ControlValueAccessor
 {
@@ -34,10 +35,20 @@ export class InputFile implements ControlValueAccessor
     accept = input<string>();
 
     /**
+     * Tooltip message text displayed on hover or focus.
+     */
+    matTooltip = input<string>();
+
+    /**
      * Visual style variant applied to standard Angular Material buttons.
      * @default 'filled'
      */
     matButton = input<MatButtonAppearance>('filled');
+
+    /**
+     * Disable ripple effect
+     */
+    disableRipple = input<boolean>(false, { transform: booleanAttribute });
 
     /**
      * Whether multiple files can be selected simultaneously.

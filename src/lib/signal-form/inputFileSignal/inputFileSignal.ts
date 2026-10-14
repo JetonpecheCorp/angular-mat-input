@@ -2,13 +2,14 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonAppearance, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton } from "@angular/material/button";
 import { FieldTree } from '@angular/forms/signals';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     selector: 'jp-signal-input-file-btn',
     standalone: true,
     templateUrl: './inputFileSignal.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [MatIconModule, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton]
+    imports: [MatIconModule, MatTooltipModule, MatAnchor, MatMiniFabButton, MatFabButton, MatIconButton]
 })
 export class InputFileSignal
 {
@@ -39,6 +40,11 @@ export class InputFileSignal
     accept = input<string>();
 
     /**
+     * Tooltip message text displayed on hover or focus.
+     */
+    matTooltip = input<string>();
+
+    /**
      * Visual style variant applied to standard Angular Material buttons.
      * @default 'filled'
      */
@@ -49,6 +55,11 @@ export class InputFileSignal
      * @default false
      */
     multiple = input<boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Disable ripple effect
+     */
+    disableRipple = input<boolean>(false, { transform: booleanAttribute });
 
     /**
      * Renders the button as a mini floating action button (Mini FAB).
