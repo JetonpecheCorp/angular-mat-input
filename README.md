@@ -13,7 +13,6 @@ Simplify form development with Angular Material. This package wraps native Angul
 
 | Package Version | Angular Version |
 | :--- | :--- |
-| `1.1.11` | Angular 20.3.0 |
 | `1.2.10` | Angular 21 |
 | `2.0.0+` | Angular 22+ |
 
